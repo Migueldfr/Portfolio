@@ -1,989 +1,271 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miguel De Frutos Revilla | Data Scientist & BI Specialist</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --color-bg-light: #FAFAFA;
-            --color-bg-dark: #0A0A0A;
-            --color-text-light: #1A1A1A;
-            --color-text-dark: #F5F5F5;
-            --color-accent: #2563EB;
-            --color-accent-hover: #1D4ED8;
-            --color-card-light: #FFFFFF;
-            --color-card-dark: #151515;
-            --color-border-light: #E5E5E5;
-            --color-border-dark: #2A2A2A;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        body.light-mode {
-            background-color: var(--color-bg-light);
-            color: var(--color-text-light);
-        }
-        
-        body.dark-mode {
-            background-color: var(--color-bg-dark);
-            color: var(--color-text-dark);
-        }
-        
-        .container-custom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        body.light-mode header {
-            background-color: rgba(250, 250, 250, 0.8);
-            border-bottom: 1px solid var(--color-border-light);
-        }
-        
-        body.dark-mode header {
-            background-color: rgba(10, 10, 10, 0.8);
-            border-bottom: 1px solid var(--color-border-dark);
-        }
-        
-        /* Hero Section */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 80px;
-        }
-        
-        /* Buttons */
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background-color: var(--color-accent);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--color-accent-hover);
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background-color: transparent;
-            color: var(--color-accent);
-            border: 2px solid var(--color-accent);
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        
-        body.dark-mode .btn-secondary {
-            color: var(--color-text-dark);
-            border-color: var(--color-text-dark);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--color-accent);
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        body.dark-mode .btn-secondary:hover {
-            background-color: var(--color-text-dark);
-            color: var(--color-bg-dark);
-        }
-        
-        /* Cards */
-        .project-card {
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        body.light-mode .project-card {
-            background-color: var(--color-card-light);
-            border: 1px solid var(--color-border-light);
-        }
-        
-        body.dark-mode .project-card {
-            background-color: var(--color-card-dark);
-            border: 1px solid var(--color-border-dark);
-        }
-        
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-        
-        body.dark-mode .project-card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        }
-        
-        .project-image {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 48px;
-        }
-        
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            border-radius: 12px;
-            max-width: 1400px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        body.light-mode .modal-content {
-            background-color: var(--color-card-light);
-        }
-        
-        body.dark-mode .modal-content {
-            background-color: var(--color-card-dark);
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 32px;
-            cursor: pointer;
-            z-index: 10;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.2s ease;
-        }
-        
-        body.light-mode .modal-close {
-            color: var(--color-text-light);
-            background-color: var(--color-bg-light);
-        }
-        
-        body.dark-mode .modal-close {
-            color: var(--color-text-dark);
-            background-color: var(--color-bg-dark);
-        }
-        
-        .modal-close:hover {
-            transform: rotate(90deg);
-            opacity: 0.7;
-        }
-        
-        /* Theme Toggle */
-        .theme-toggle {
-            width: 60px;
-            height: 30px;
-            background-color: var(--color-border-light);
-            border-radius: 15px;
-            position: relative;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        body.dark-mode .theme-toggle {
-            background-color: var(--color-accent);
-        }
-        
-        .theme-toggle-button {
-            width: 26px;
-            height: 26px;
-            background-color: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        body.dark-mode .theme-toggle-button {
-            transform: translateX(30px);
-        }
-        
-        /* Sections */
-        section {
-            padding: 80px 0;
-        }
-        
-        /* Contact Form */
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: all 0.2s ease;
-        }
-        
-        body.light-mode .form-input {
-            background-color: var(--color-card-light);
-            border: 1px solid var(--color-border-light);
-            color: var(--color-text-light);
-        }
-        
-        body.dark-mode .form-input {
-            background-color: var(--color-card-dark);
-            border: 1px solid var(--color-border-dark);
-            color: var(--color-text-dark);
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--color-accent);
-        }
-        
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        body.light-mode footer {
-            border-top: 1px solid var(--color-border-light);
-        }
-        
-        body.dark-mode footer {
-            border-top: 1px solid var(--color-border-dark);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: auto;
-                padding: 120px 0 60px;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-            
-            .project-image {
-                height: 200px;
-            }
-        }
-        
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Code/Mono Font */
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000" />
+    <meta name="description" content="Miguel de Frutos Revilla | Portfolio de Ingeniería Informática. Explora mis proyectos y habilidades en desarrollo de software." />
+    <meta name="keywords" content="miguel de frutos revilla, migueldfr, portfolio, desarrollador, ingeniero informatico, python, java, c++, sql, docker" />
+    <meta name="author" content="Miguel de Frutos Revilla" />
+    <title>Miguel de Frutos Revilla | Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="src/png/nav-avatar.png" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Passions+Conflict&family=Orbitron&family=Fira+Code&family=Six+Caps" />
 </head>
-<body class="dark-mode">
-    <!-- Header -->
+
+<body class="body">
+    <div id="preloader"></div>
+    <noscript>Por favor, activa JavaScript para ver este sitio correctamente.</noscript>
+
     <header>
-        <nav class="container-custom py-4">
-            <div class="flex items-center justify-between">
-                <div class="mono text-lg font-semibold">
-                    <span class="text-blue-600">{'</>'}</span> MDF
-                </div>
-                
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#projects" class="hover:text-blue-600 transition-colors">Proyectos</a>
-                    <a href="#about" class="hover:text-blue-600 transition-colors">Sobre Mí</a>
-                    <a href="#contact" class="hover:text-blue-600 transition-colors">Contacto</a>
-                </div>
-                
-                <div class="flex items-center gap-4">
-                    <div class="theme-toggle" onclick="toggleTheme()">
-                        <div class="theme-toggle-button">
-                            <i data-lucide="sun" class="w-4 h-4"></i>
-                        </div>
-                    </div>
+        <div class="cursor-inner" id="cursor-inner"></div>
+        <div class="cursor-outer" id="cursor-outer"></div>
+
+        <div class="navbar" id="navbar">
+            <div class="hey">¡Hola!</div>
+            <div class="logo" tabindex="0" aria-label="Logo de Miguel de Frutos">
+                <div class="logo-top">
+                    <img src="src/png/nav-avatar.png" alt="avatar animado" id="nav-avatar"/>
                 </div>
             </div>
-        </nav>
+            <div class="navbar-tabs" id="navbar-tabs">
+                <ul class="navbar-tabs-ul">
+                    <li class="home activeThistab" data-aos="fade-down" data-aos-delay="100">
+                        <a href="#home" tabindex="0" aria-label="Botón de menú Inicio">&#60;/Inicio&#62;</a>
+                    </li>
+                    <li class="about" data-aos="fade-down" data-aos-delay="300">
+                        <a href="#about" aria-label="Botón de menú Sobre Mí">&#60;/SobreMí&#62;</a>
+                    </li>
+                    <li class="skills" data-aos="fade-down" data-aos-delay="500">
+                        <a href="#skills" aria-label="Botón de menú Habilidades">&#60;/Habilidades&#62;</a>
+                    </li>
+                    <li class="projects" data-aos="fade-down" data-aos-delay="700">
+                        <a href="#projects" aria-label="Botón de menú Proyectos">&#60;/Proyectos&#62;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container-custom">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="mb-6">
-                    <span class="mono text-sm text-blue-600 font-medium">Hola, soy</span>
-                </div>
-                
-                <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                    Miguel De Frutos Revilla
-                </h1>
-                
-                <p class="text-xl md:text-2xl mb-8 opacity-80">
-                    Transformo datos en decisiones estratégicas a través de <span class="text-blue-600 font-semibold">Power BI</span>
-                </p>
-                
-                <p class="text-lg mb-12 max-w-2xl mx-auto opacity-70">
-                    Data Scientist con sólida experiencia en arquitectura de Business Intelligence. 
-                    Especializado en crear dashboards interactivos y análisis avanzados que impulsan 
-                    la toma de decisiones basadas en datos.
-                </p>
-                
-                <div class="flex flex-wrap items-center justify-center gap-4">
-                    <a href="https://www.linkedin.com/in/migueldefrutosrevilla/" target="_blank" class="btn-primary">
-                        <i data-lucide="linkedin" class="w-5 h-5"></i>
-                        LinkedIn
-                    </a>
-                    
-                    <a href="https://github.com/Migueldfr" target="_blank" class="btn-primary">
-                        <i data-lucide="github" class="w-5 h-5"></i>
-                        GitHub
-                    </a>
-                    
-                    <a href="#" class="btn-secondary" onclick="alert('Funcionalidad de descarga de CV disponible próximamente'); return false;">
-                        <i data-lucide="download" class="w-5 h-5"></i>
-                        Descargar CV
-                    </a>
-                </div>
+    <main>
+        <div class="hamburger" id="hamburger" data-aos="fade">
+            <div class="hamburgerbase">
+                <button id="hamburger-button" onclick="hamburgerMenu()" tabindex="0" aria-label="Botón de Menú">
+                    <span class="burger-bar" id="burger-bar1"></span>
+                    <span class="burger-bar" id="burger-bar2"></span>
+                    <span class="burger-bar" id="burger-bar3"></span>
+                </button>
             </div>
         </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-20">
-        <div class="container-custom">
-            <div class="text-center mb-16">
-                <span class="mono text-sm text-blue-600 font-medium">MI TRABAJO</span>
-                <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Portafolio de Proyectos</h2>
-                <p class="text-lg opacity-70 max-w-2xl mx-auto">
-                    Dashboards interactivos en Power BI que transforman datos complejos en insights accionables
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <i data-lucide="bar-chart-3" class="w-16 h-16"></i>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-3">Análisis de Ventas</h3>
-                            <p class="opacity-70 mb-6">
-                                Dashboard completo de análisis de ventas con KPIs clave, tendencias temporales 
-                                y segmentación por producto y región.
-                            </p>
-                        </div>
-                        <button onclick="openModal(1)" class="btn-primary w-full justify-center">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                            Ver Dashboard Interactivo
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                        <i data-lucide="trending-up" class="w-16 h-16"></i>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-3">Performance Financiero</h3>
-                            <p class="opacity-70 mb-6">
-                                Análisis financiero en tiempo real con métricas de rentabilidad, flujo de caja 
-                                y proyecciones basadas en datos históricos.
-                            </p>
-                        </div>
-                        <button onclick="openModal(2)" class="btn-primary w-full justify-center">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                            Ver Dashboard Interactivo
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                        <i data-lucide="users" class="w-16 h-16"></i>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-3">Análisis de Clientes</h3>
-                            <p class="opacity-70 mb-6">
-                                Segmentación avanzada de clientes, análisis de comportamiento y predicción 
-                                de churn con modelos de Machine Learning.
-                            </p>
-                        </div>
-                        <button onclick="openModal(3)" class="btn-primary w-full justify-center">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                            Ver Dashboard Interactivo
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Project 4 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                        <i data-lucide="line-chart" class="w-16 h-16"></i>
-                    </div>
-                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-3">Optimización Operativa</h3>
-                            <p class="opacity-70 mb-6">
-                                Dashboard de eficiencia operativa con indicadores de productividad, 
-                                análisis de cuellos de botella y recomendaciones de mejora.
-                            </p>
-                        </div>
-                        <button onclick="openModal(4)" class="btn-primary w-full justify-center">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                            Ver Dashboard Interactivo
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <div class="mobiletogglemenu" id="mobiletogglemenu">
+            <ul class="mobile-navbar-tabs-ul" id="mobile-ul">
+                <li class="mobile-navbar-tabs-li home activeThismobiletab" onclick="hidemenubyli()"><a href="#home">&#60;/Inicio&#62;</a></li>
+                <li class="mobile-navbar-tabs-li about" onclick="hidemenubyli()"><a href="#about">&#60;/SobreMí&#62;</a></li>
+                <li class="mobile-navbar-tabs-li skills" onclick="hidemenubyli()"><a href="#skills">&#60;/Habilidades&#62;</a></li>
+                <li class="mobile-navbar-tabs-li projects" onclick="hidemenubyli()"><a href="#projects">&#60;/Proyectos&#62;</a></li>
+            </ul>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20">
-        <div class="container-custom">
-            <div class="max-w-5xl mx-auto">
-                <div class="text-center mb-12">
-                    <span class="mono text-sm text-blue-600 font-medium">CONÓCEME</span>
-                    <h2 class="text-4xl md:text-5xl font-bold mt-2">Sobre Mí</h2>
+        <section class="landing-page-container" id="home">
+            <div class="blob"></div>
+            <div class="text-content">
+                <article id="hello-friend" data-aos="fade-up" data-aos-delay="0">
+                    <p class="jello">H</p><p class="jello">o</p><p class="jello">l</p><p class="jello">a</p><p class="jello">(</p><p class="jello">)</p><p class="jello">;</p>&nbsp;<p class="jello">s</p><p class="jello">o</p><p class="jello">y</p>
+                </article>
+                <article id="name" data-aos="fade-up" data-aos-delay="200">
+                    <p class="jello">M</p><p class="jello">i</p><p class="jello">g</p><p class="jello">u</p><p class="jello">e</p><p class="jello">l</p>&nbsp;<p class="jello">d</p><p class="jello">e</p>&nbsp;<p class="jello">F</p><p class="jello">r</p><p class="jello">u</p><p class="jello">t</p><p class="jello">o</p><p class="jello">s</p><p class="jello">.</p>
+                </article>
+                <article id="work" data-aos="fade-up" data-aos-delay="400">
+                    <div><p class="jello">D</p><p class="jello">e</p><p class="jello">s</p><p class="jello">a</p><p class="jello">r</p><p class="jello">r</p><p class="jello">o</p><p class="jello">l</p><p class="jello">l</p><p class="jello">o</p></div>&nbsp;<div><p class="jello">s</p><p class="jello">o</p><p class="jello">l</p><p class="jello">u</p><p class="jello">c</p><p class="jello">i</p><p class="jello">o</p><p class="jello">n</p><p class="jello">e</p><p class="jello">s</p></div>&nbsp;<div><p class="jello">d</p><p class="jello">e</p></div>&nbsp;<div><p class="jello">s</p><p class="jello">o</p><p class="jello">f</p><p class="jello">t</p><p class="jello">w</p><p class="jello">a</p><p class="jello">r</p><p class="jello">e</p><p class="jello">.</p></div>
+                </article>
+                <p id="info-para" data-aos="fade-up" data-aos-delay="600">
+                    Estudiante de Ingeniería Informática apasionado por la resolución de problemas y la creación de software eficiente. <br /> Valoro el código limpio, las estructuras lógicas y el aprendizaje continuo.
+                </p>
+                <div class="contact-btn-div" data-aos="fade-up" data-aos-delay="800">
+                    <a href="mailto:tu.email@example.com" tabindex="-1">
+                        <button class="letsTalkBtn">
+                            <p class="letsTalkBtn-text">¡Contacta!</p>
+                            <span class="letsTalkBtn-BG"></span>
+                        </button>
+                    </a>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
-                    <div class="md:col-span-1 flex justify-center">
-                        <div class="w-64 h-64 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white text-6xl font-bold">
-                            MDF
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-2 space-y-6">
-                        <p class="text-lg leading-relaxed">
-                            Soy un <strong>Data Scientist</strong> con una sólida experiencia en arquitectura de 
-                            <strong>Business Intelligence</strong>. Mi pasión es transformar datos complejos en 
-                            insights claros y accionables que impulsen la toma de decisiones estratégicas.
+            </div>
+        </section>
+
+        <section class="about-section-container" id="about" data-aos="fade-up">
+            <div class="about-section">
+                <div class="section-heading">
+                    <h2 class="section-heading-article" tabindex="0" aria-label="Sección Sobre Mí">&#60;/SobreMí&#62;</h2>
+                    <p class="sectionHeadingP"></p>
+                </div>
+                <div class="info-dp-section">
+                    <div class="about-info">
+                        <p tabindex="0">
+                            ¡Hola! Soy Miguel, un futuro Ingeniero Informático con un gran interés en el desarrollo de software y la tecnología. Mi curiosidad por cómo funcionan las cosas me llevó a la programación, donde disfruto convirtiendo ideas complejas en soluciones funcionales.
+                        </p><br/>
+                        <p tabindex="0">
+                            Actualmente, estoy profundizando mis conocimientos en áreas como el desarrollo backend, la gestión de bases de datos y la automatización de infraestructuras. Disfruto enfrentándome a nuevos retos que me permitan aprender y mejorar mis habilidades.
+                        </p><br/>
+                        <p tabindex="0">
+                            Mi objetivo es construir tecnología útil y robusta, y siempre estoy abierto a colaborar en proyectos interesantes.
                         </p>
-                        
-                        <p class="text-lg leading-relaxed">
-                            Actualmente trabajo en <strong>EPTA GROUP</strong>, donde he desarrollado soluciones 
-                            de BI que han optimizado procesos clave y mejorado la eficiencia operativa. Mi enfoque 
-                            combina habilidades técnicas avanzadas con una profunda comprensión del negocio.
-                        </p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6">
-                            <div>
-                                <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="code-2" class="w-5 h-5 text-blue-600"></i>
-                                    Habilidades Técnicas
-                                </h3>
-                                <ul class="space-y-2 opacity-80">
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Power BI & DAX
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Power Query & ETL
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Python & SQL
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Machine Learning
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Tableau & Visualización
-                                    </li>
-                                </ul>
+                        <button class="resume-btn" id="resume-btn" onclick="openURL()">
+                            <div class="sign"><svg viewBox="0 0 640 512"><path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-167l80 80c9.4 9.4 24.6 9.4 33.9 0l80-80c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-39 39V184c0-13.3-10.7-24-24-24s-24 10.7-24 24V318.1l-39-39c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9z"/></svg></div>
+                            <div class="text">Mi CV</div>
+                        </button>
+                    </div>
+                    <div class="dp" data-aos="fade-up">
+                        <img src="src/webp/miguel-foto.webp" alt="Foto de Miguel de Frutos" tabindex="0" aria-label="Foto de Miguel de Frutos" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills-section-container" id="skills">
+            <div class="skills-section">
+                <div class="section-heading" data-aos="fade-up">
+                    <h2 class="section-heading-article" tabindex="0" aria-label="Sección de Habilidades">&#60;/Habilidades&#62;</h2>
+                    <p class="sectionHeadingP"></p>
+                </div>
+                <div class="frontend-dev-section">
+                    <h3 class="frontend-dev-heading" data-aos="fade-up" tabindex="0">Tecnologías que manejo</h3>
+                    <ul class="tech-stack-wrapper">
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/python.png" alt="logo de Python" class="tech-stack-logo"/><span class="tooltip">PYTHON</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/cpp.png" alt="logo de C++" class="tech-stack-logo"/><span class="tooltip">C++</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/java.png" alt="logo de Java" class="tech-stack-logo"/><span class="tooltip">JAVA</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/sql.png" alt="logo de SQL" class="tech-stack-logo"/><span class="tooltip">SQL</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/html.png" alt="logo de HTML" class="tech-stack-logo"/><span class="tooltip">HTML</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/css.png" alt="logo de CSS" class="tech-stack-logo"/><span class="tooltip">CSS</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/js.png" alt="logo de JavaScript" class="tech-stack-logo"/><span class="tooltip">JAVASCRIPT</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/git.png" alt="logo de Git" class="tech-stack-logo"/><span class="tooltip">GIT</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/docker.png" alt="logo de Docker" class="tech-stack-logo"/><span class="tooltip">DOCKER</span></li>
+                        <li class="tech-stack-box" data-aos="fade-up"><img src="./src/png/github.png" alt="logo de GitHub" class="tech-stack-logo needtobeinvert"/><span class="tooltip">GITHUB</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="projects-section-container" id="projects">
+            <div class="projects-section-div">
+                <div class="section-heading" data-aos="fade-up">
+                    <h2 class="section-heading-article" tabindex="0" aria-label="Sección de Proyectos">&#60;/Proyectos&#62;</h2>
+                    <p class="sectionHeadingP"></p>
+                </div>
+                <div class="project-boxes-div">
+                    <div data-aos="fade-up" class="project-box-wrapper">
+                        <div class="project-box project-box2" id="project-box1">
+                            <div class="info-div">
+                                <article class="ProjectHeading">Nombre del Proyecto 1</article>
+                                <p class="ProjectDescription">
+                                    Breve descripción de tu proyecto. Explica qué problema resuelve, qué tecnologías usaste (ej. Java, Spring Boot, SQL) y cuál fue tu rol.
+                                </p>
+                                <div class="project-buttons">
+                                    <a href="https://github.com/Migueldfr/link-a-tu-repo-1" target="_blank" class="github-redirect" aria-label="Ver Proyecto 1 en GitHub"><img src="src/png/github.png" alt="logo de github"/></a>
+                                </div>
                             </div>
-                            
-                            <div>
-                                <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
-                                    <i data-lucide="award" class="w-5 h-5 text-blue-600"></i>
-                                    Certificaciones
-                                </h3>
-                                <ul class="space-y-2 opacity-80">
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Deep Learning
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        SQL Expert
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Tableau Certified
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Agile Methodology
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
-                                        Python Core
-                                    </li>
-                                </ul>
+                            <div class="image-div">
+                                <img src="src/webp/placeholder-proyecto1.webp" alt="preview del proyecto 1" />
                             </div>
                         </div>
-                        
-                        <div class="pt-6">
-                            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
-                                <i data-lucide="globe" class="w-5 h-5 text-blue-600"></i>
-                                Idiomas
-                            </h3>
-                            <div class="flex flex-wrap gap-4">
-                                <span class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                                    Español (Nativo)
-                                </span>
-                                <span class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                                    Inglés (Profesional)
-                                </span>
-                                <span class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
-                                    Alemán (Intermedio)
-                                </span>
+                    </div>
+                     <div data-aos="fade-up" class="project-box-wrapper">
+                        <div class="project-box project-box2" id="project-box2">
+                            <div class="info-div">
+                                <article class="ProjectHeading">Nombre del Proyecto 2</article>
+                                <p class="ProjectDescription">
+                                    Breve descripción de tu proyecto. Explica qué problema resuelve, qué tecnologías usaste (ej. Python, Pandas, Matplotlib) y cuál fue tu rol.
+                                </p>
+                                <div class="project-buttons">
+                                    <a href="https://github.com/Migueldfr/link-a-tu-repo-2" target="_blank" class="github-redirect" aria-label="Ver Proyecto 2 en GitHub"><img src="src/png/github.png" alt="logo de github"/></a>
+                                </div>
+                            </div>
+                            <div class="image-div">
+                                <img src="src/webp/placeholder-proyecto2.webp" alt="preview del proyecto 2" />
+                            </div>
+                        </div>
+                    </div>
+                     <div data-aos="fade-up" class="project-box-wrapper">
+                        <div class="project-box project-box2" id="project-box3">
+                            <div class="info-div">
+                                <article class="ProjectHeading">Nombre del Proyecto 3</article>
+                                <p class="ProjectDescription">
+                                    Breve descripción de tu proyecto. Explica qué problema resuelve, qué tecnologías usaste (ej. C++, Docker) y cuál fue tu rol.
+                                </p>
+                                <div class="project-buttons">
+                                    <a href="https://github.com/Migueldfr/link-a-tu-repo-3" target="_blank" class="github-redirect" aria-label="Ver Proyecto 3 en GitHub"><img src="src/png/github.png" alt="logo de github"/></a>
+                                </div>
+                            </div>
+                            <div class="image-div">
+                                <img src="src/webp/placeholder-proyecto3.webp" alt="preview del proyecto 3" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20">
-        <div class="container-custom">
-            <div class="max-w-3xl mx-auto">
-                <div class="text-center mb-12">
-                    <span class="mono text-sm text-blue-600 font-medium">HABLEMOS</span>
-                    <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Contacto</h2>
-                    <p class="text-lg opacity-70">
-                        ¿Tienes un proyecto en mente? Me encantaría escucharte
-                    </p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    <div class="flex items-center gap-4 p-6 rounded-lg border transition-all hover:border-blue-600">
-                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="mail" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold mb-1">Email</h3>
-                            <a href="mailto:miguel.frutos.revilla.sb@gmail.com" class="text-blue-600 hover:underline">
-                                miguel.frutos.revilla.sb@gmail.com
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center gap-4 p-6 rounded-lg border transition-all hover:border-blue-600">
-                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="linkedin" class="w-6 h-6 text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold mb-1">LinkedIn</h3>
-                            <a href="https://www.linkedin.com/in/migueldefrutosrevilla/" target="_blank" class="text-blue-600 hover:underline">
-                                /migueldefrutosrevilla
-                            </a>
-                        </div>
+    <footer id="footer">
+        <button class="fas" id="backtotopbutton" onclick="scrolltoTopfunction()">
+            <article aria-label="Volver arriba">&#8592; VOLVER ARRIBA</article>
+        </button>
+        <div class="footer-background"><div class="footer-blob"></div></div>
+        <div class="footer-foreground">
+            <div class="footercontainer">
+                <div class="two-words"><article tabindex="0">"Construyendo el futuro, una línea de código a la vez."</article></div>
+                <div class="social-media-container">
+                    <div class="getintouch-heading"><article>Contacto();</article></div>
+                    <div class="logos">
+                         <a href="https://www.linkedin.com/in/migueldefrutosrevilla/" target="_blank" aria-label="Mi LinkedIn"><svg class="SocialHandle" viewBox="0 0 448 512"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" /></svg></a>
+                        <a href="https://github.com/Migueldfr" target="_blank" aria-label="Mi GitHub"><svg viewBox="0 0 496 512" class="SocialHandle"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" /></svg></a>
+                        <a href="mailto:tu.email@example.com" target="_blank" aria-label="Mi Email"><svg id="GmailLogo" viewBox="0 0 512 512"><path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z" /></svg></a>
                     </div>
                 </div>
-                
-                <form class="space-y-6" onsubmit="handleFormSubmit(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block mb-2 font-medium">Nombre</label>
-                            <input type="text" name="name" required class="form-input" placeholder="Tu nombre">
-                        </div>
-                        <div>
-                            <label class="block mb-2 font-medium">Email</label>
-                            <input type="email" name="email" required class="form-input" placeholder="tu@email.com">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block mb-2 font-medium">Mensaje</label>
-                        <textarea name="message" rows="6" required class="form-input" placeholder="Cuéntame sobre tu proyecto..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary w-full justify-center text-lg py-4">
-                        <i data-lucide="send" class="w-5 h-5"></i>
-                        Enviar Mensaje
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container-custom">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="mono text-sm">
-                    <span class="text-blue-600">{'</>'}</span> Miguel De Frutos Revilla
+                <div class="footer-avatar-container">
+                    <img src="src/png/nav-avatar.png" alt="avatar animado" class="footer-avatar-img" id="footer-wala-avatar"/>
                 </div>
-                
-                <p class="text-sm opacity-70">
-                    © 2025 Todos los derechos reservados
-                </p>
-                
-                <div class="flex items-center gap-4">
-                    <a href="https://www.linkedin.com/in/migueldefrutosrevilla/" target="_blank" class="hover:text-blue-600 transition-colors">
-                        <i data-lucide="linkedin" class="w-5 h-5"></i>
-                    </a>
-                    <a href="https://github.com/Migueldfr" target="_blank" class="hover:text-blue-600 transition-colors">
-                        <i data-lucide="github" class="w-5 h-5"></i>
-                    </a>
+                <div class="footer-bottom">
+                    <article>Diseñado y construido por Miguel de Frutos Revilla &#169; 2025</article>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Modal -->
-    <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            
-            <div class="p-8">
-                <h2 id="modalTitle" class="text-3xl font-bold mb-6"></h2>
-                
-                <!-- IFRAME Container -->
-                <div class="mb-8 rounded-lg overflow-hidden" style="background: #f0f0f0; min-height: 600px;">
-                    <div id="modalIframe" class="w-full" style="height: 600px; display: flex; align-items: center; justify-content: center; color: #666;">
-                        <!-- INSERTA AQUÍ EL IFRAME DEL PROYECTO DE POWER BI -->
-                        <div class="text-center p-8">
-                            <i data-lucide="bar-chart-3" class="w-16 h-16 mx-auto mb-4 opacity-30"></i>
-                            <p class="text-lg">Aquí se mostrará tu dashboard interactivo de Power BI</p>
-                            <p class="text-sm mt-2 opacity-70">Inserta el código iframe de Power BI en el JavaScript</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project Details -->
-                <div id="modalDescription" class="space-y-4">
-                    <!-- Descripción detallada del proyecto -->
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <script src="main.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-        
-        // Theme Toggle
-        function toggleTheme() {
-            const body = document.body;
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            }
-            lucide.createIcons();
+        AOS.init();
+    </script>
+    <script>
+        function openURL() {
+            var url = "src/pdf/CV_Miguel_de_Frutos_Revilla.pdf";
+            window.open(url, "_blank");
         }
-        
-        // Load saved theme
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'light') {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-            }
-            lucide.createIcons();
-        });
-        
-        // Project Data
-        const projects = {
-            1: {
-                title: 'Análisis de Ventas',
-                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 1 -->',
-                description: `
-                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
-                    <p class="mb-4 opacity-80">
-                        Desarrollar un dashboard completo que permita analizar el rendimiento de ventas en tiempo real, 
-                        identificar tendencias y optimizar estrategias comerciales basadas en datos.
-                    </p>
-                    
-                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
-                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
-                        <li>Power BI para visualización interactiva</li>
-                        <li>DAX para cálculos avanzados y KPIs</li>
-                        <li>Power Query para transformación de datos</li>
-                        <li>SQL para extracción de datos</li>
-                    </ul>
-                    
-                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
-                    <ul class="list-disc list-inside opacity-80 space-y-1">
-                        <li>Reducción del 30% en tiempo de generación de reportes</li>
-                        <li>Identificación de productos con mayor potencial de crecimiento</li>
-                        <li>Optimización de inventario basada en análisis predictivo</li>
-                        <li>Mejora en la toma de decisiones estratégicas</li>
-                    </ul>
-                `
-            },
-            2: {
-                title: 'Performance Financiero',
-                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 2 -->',
-                description: `
-                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
-                    <p class="mb-4 opacity-80">
-                        Crear un dashboard financiero integral que proporcione una visión clara del estado financiero 
-                        de la empresa, incluyendo análisis de rentabilidad, flujo de caja y proyecciones.
-                    </p>
-                    
-                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
-                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
-                        <li>Power BI para visualización de métricas financieras</li>
-                        <li>DAX para cálculos financieros complejos</li>
-                        <li>Python para análisis predictivo</li>
-                        <li>Excel como fuente de datos complementaria</li>
-                    </ul>
-                    
-                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
-                    <ul class="list-disc list-inside opacity-80 space-y-1">
-                        <li>Automatización del 80% de reportes financieros</li>
-                        <li>Mejora en la precisión de proyecciones financieras</li>
-                        <li>Identificación temprana de riesgos financieros</li>
-                        <li>Reducción de costos operativos en un 15%</li>
-                    </ul>
-                `
-            },
-            3: {
-                title: 'Análisis de Clientes',
-                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 3 -->',
-                description: `
-                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
-                    <p class="mb-4 opacity-80">
-                        Desarrollar un sistema de análisis de clientes que permita segmentar la base de clientes, 
-                        predecir comportamientos y personalizar estrategias de retención.
-                    </p>
-                    
-                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
-                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
-                        <li>Power BI para visualización de segmentos</li>
-                        <li>Python (Scikit-learn) para modelos de Machine Learning</li>
-                        <li>DAX para métricas de comportamiento de clientes</li>
-                        <li>Power Query para limpieza y transformación de datos</li>
-                    </ul>
-                    
-                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
-                    <ul class="list-disc list-inside opacity-80 space-y-1">
-                        <li>Mejora del 25% en retención de clientes</li>
-                        <li>Identificación de clientes de alto valor (VIP)</li>
-                        <li>Reducción del churn en un 20%</li>
-                        <li>Personalización de campañas de marketing</li>
-                    </ul>
-                `
-            },
-            4: {
-                title: 'Optimización Operativa',
-                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 4 -->',
-                description: `
-                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
-                    <p class="mb-4 opacity-80">
-                        Crear un dashboard operativo que permita monitorear la eficiencia de procesos, 
-                        identificar cuellos de botella y optimizar la productividad general.
-                    </p>
-                    
-                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
-                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
-                        <li>Power BI para monitoreo en tiempo real</li>
-                        <li>DAX para cálculo de KPIs operativos</li>
-                        <li>Power Automate para alertas automáticas</li>
-                        <li>SQL para integración con sistemas operativos</li>
-                    </ul>
-                    
-                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
-                    <ul class="list-disc list-inside opacity-80 space-y-1">
-                        <li>Aumento del 35% en eficiencia operativa</li>
-                        <li>Reducción de tiempos de entrega en un 20%</li>
-                        <li>Identificación y resolución de cuellos de botella</li>
-                        <li>Mejora en la asignación de recursos</li>
-                    </ul>
-                `
-            }
-        };
-        
-        // Modal Functions
-        function openModal(projectId) {
-            const modal = document.getElementById('projectModal');
-            const project = projects[projectId];
-            
-            document.getElementById('modalTitle').textContent = project.title;
-            document.getElementById('modalDescription').innerHTML = project.description;
-            
-            // Aquí es donde insertarás tus iframes de Power BI
-            const iframeContainer = document.getElementById('modalIframe');
-            iframeContainer.innerHTML = `
-                <div class="text-center p-8">
-                    <i data-lucide="bar-chart-3" class="w-16 h-16 mx-auto mb-4 opacity-30"></i>
-                    <p class="text-lg font-semibold mb-2">${project.title}</p>
-                    <p class="text-sm opacity-70">Inserta aquí el código iframe de Power BI para este proyecto</p>
-                    <p class="text-xs opacity-50 mt-4">Ejemplo de código iframe:</p>
-                    <code class="text-xs opacity-50 mt-2 block">
-                        &lt;iframe width="100%" height="600" src="TU_URL_DE_POWER_BI"&gt;&lt;/iframe&gt;
-                    </code>
-                </div>
-            `;
-            
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Reinitialize icons
-            setTimeout(() => lucide.createIcons(), 100);
-        }
-        
-        function closeModal() {
-            const modal = document.getElementById('projectModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Close modal on outside click
-        document.getElementById('projectModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-        
-        // Close modal on ESC key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
-        
-        // Form Submit Handler
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
-            
-            // Aquí puedes agregar tu lógica de envío de formulario
-            // Por ahora, solo mostramos un mensaje de confirmación
-            
-            alert(`¡Gracias ${name}! Tu mensaje ha sido recibido. Te contactaré pronto a ${email}.`);
-            event.target.reset();
-            
-            return false;
-        }
-        
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+    </script>
+    <script>
+        const cursorInner = document.getElementById("cursor-inner");
+        const cursorOuter = document.getElementById("cursor-outer");
+        const links = document.querySelectorAll("a,label,button");
+
+        document.addEventListener("mousemove", function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorInner.style.left = `${posX}px`;
+            cursorInner.style.top = `${posY}px`;
+            cursorOuter.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+            links.forEach((link) => {
+                link.addEventListener("mouseenter", () => {
+                    cursorInner.classList.add("hover");
+                    cursorOuter.classList.add("hover");
+                });
+                link.addEventListener("mouseleave", () => {
+                    cursorInner.classList.remove("hover");
+                    cursorOuter.classList.remove("hover");
+                });
             });
-        });
-        
-        // Header background on scroll
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.boxShadow = 'none';
-            }
-            
-            lastScroll = currentScroll;
         });
     </script>
 </body>

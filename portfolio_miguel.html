@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miguel De Frutos Revilla | Data Scientist & BI Specialist</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-bg-light: #FAFAFA;
+            --color-bg-dark: #0A0A0A;
+            --color-text-light: #1A1A1A;
+            --color-text-dark: #F5F5F5;
+            --color-accent: #2563EB;
+            --color-accent-hover: #1D4ED8;
+            --color-card-light: #FFFFFF;
+            --color-card-dark: #151515;
+            --color-border-light: #E5E5E5;
+            --color-border-dark: #2A2A2A;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body.light-mode {
+            background-color: var(--color-bg-light);
+            color: var(--color-text-light);
+        }
+        
+        body.dark-mode {
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-dark);
+        }
+        
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode header {
+            background-color: rgba(250, 250, 250, 0.8);
+            border-bottom: 1px solid var(--color-border-light);
+        }
+        
+        body.dark-mode header {
+            background-color: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid var(--color-border-dark);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--color-accent-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background-color: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        body.dark-mode .btn-secondary {
+            color: var(--color-text-dark);
+            border-color: var(--color-text-dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--color-accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        body.dark-mode .btn-secondary:hover {
+            background-color: var(--color-text-dark);
+            color: var(--color-bg-dark);
+        }
+        
+        /* Cards */
+        .project-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        body.light-mode .project-card {
+            background-color: var(--color-card-light);
+            border: 1px solid var(--color-border-light);
+        }
+        
+        body.dark-mode .project-card {
+            background-color: var(--color-card-dark);
+            border: 1px solid var(--color-border-dark);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        body.dark-mode .project-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            border-radius: 12px;
+            max-width: 1400px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        body.light-mode .modal-content {
+            background-color: var(--color-card-light);
+        }
+        
+        body.dark-mode .modal-content {
+            background-color: var(--color-card-dark);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+        
+        body.light-mode .modal-close {
+            color: var(--color-text-light);
+            background-color: var(--color-bg-light);
+        }
+        
+        body.dark-mode .modal-close {
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-dark);
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+            opacity: 0.7;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background-color: var(--color-border-light);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        body.dark-mode .theme-toggle {
+            background-color: var(--color-accent);
+        }
+        
+        .theme-toggle-button {
+            width: 26px;
+            height: 26px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        body.dark-mode .theme-toggle-button {
+            transform: translateX(30px);
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        /* Contact Form */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        body.light-mode .form-input {
+            background-color: var(--color-card-light);
+            border: 1px solid var(--color-border-light);
+            color: var(--color-text-light);
+        }
+        
+        body.dark-mode .form-input {
+            background-color: var(--color-card-dark);
+            border: 1px solid var(--color-border-dark);
+            color: var(--color-text-dark);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        body.light-mode footer {
+            border-top: 1px solid var(--color-border-light);
+        }
+        
+        body.dark-mode footer {
+            border-top: 1px solid var(--color-border-dark);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: auto;
+                padding: 120px 0 60px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .project-image {
+                height: 200px;
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Code/Mono Font */
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Header -->
+    <header>
+        <nav class="container-custom py-4">
+            <div class="flex items-center justify-between">
+                <div class="mono text-lg font-semibold">
+                    <span class="text-blue-600">{'</>'}</span> MDF
+                </div>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#projects" class="hover:text-blue-600 transition-colors">Proyectos</a>
+                    <a href="#about" class="hover:text-blue-600 transition-colors">Sobre Mí</a>
+                    <a href="#contact" class="hover:text-blue-600 transition-colors">Contacto</a>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <div class="theme-toggle" onclick="toggleTheme()">
+                        <div class="theme-toggle-button">
+                            <i data-lucide="sun" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container-custom">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-6">
+                    <span class="mono text-sm text-blue-600 font-medium">Hola, soy</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    Miguel De Frutos Revilla
+                </h1>
+                
+                <p class="text-xl md:text-2xl mb-8 opacity-80">
+                    Transformo datos en decisiones estratégicas a través de <span class="text-blue-600 font-semibold">Power BI</span>
+                </p>
+                
+                <p class="text-lg mb-12 max-w-2xl mx-auto opacity-70">
+                    Data Scientist con sólida experiencia en arquitectura de Business Intelligence. 
+                    Especializado en crear dashboards interactivos y análisis avanzados que impulsan 
+                    la toma de decisiones basadas en datos.
+                </p>
+                
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <a href="https://www.linkedin.com/in/migueldefrutosrevilla/" target="_blank" class="btn-primary">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        LinkedIn
+                    </a>
+                    
+                    <a href="https://github.com/Migueldfr" target="_blank" class="btn-primary">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                        GitHub
+                    </a>
+                    
+                    <a href="#" class="btn-secondary" onclick="alert('Funcionalidad de descarga de CV disponible próximamente'); return false;">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                        Descargar CV
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container-custom">
+            <div class="text-center mb-16">
+                <span class="mono text-sm text-blue-600 font-medium">MI TRABAJO</span>
+                <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Portafolio de Proyectos</h2>
+                <p class="text-lg opacity-70 max-w-2xl mx-auto">
+                    Dashboards interactivos en Power BI que transforman datos complejos en insights accionables
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <i data-lucide="bar-chart-3" class="w-16 h-16"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3">Análisis de Ventas</h3>
+                            <p class="opacity-70 mb-6">
+                                Dashboard completo de análisis de ventas con KPIs clave, tendencias temporales 
+                                y segmentación por producto y región.
+                            </p>
+                        </div>
+                        <button onclick="openModal(1)" class="btn-primary w-full justify-center">
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
+                            Ver Dashboard Interactivo
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i data-lucide="trending-up" class="w-16 h-16"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3">Performance Financiero</h3>
+                            <p class="opacity-70 mb-6">
+                                Análisis financiero en tiempo real con métricas de rentabilidad, flujo de caja 
+                                y proyecciones basadas en datos históricos.
+                            </p>
+                        </div>
+                        <button onclick="openModal(2)" class="btn-primary w-full justify-center">
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
+                            Ver Dashboard Interactivo
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i data-lucide="users" class="w-16 h-16"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3">Análisis de Clientes</h3>
+                            <p class="opacity-70 mb-6">
+                                Segmentación avanzada de clientes, análisis de comportamiento y predicción 
+                                de churn con modelos de Machine Learning.
+                            </p>
+                        </div>
+                        <button onclick="openModal(3)" class="btn-primary w-full justify-center">
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
+                            Ver Dashboard Interactivo
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <i data-lucide="line-chart" class="w-16 h-16"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-direction: column justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-3">Optimización Operativa</h3>
+                            <p class="opacity-70 mb-6">
+                                Dashboard de eficiencia operativa con indicadores de productividad, 
+                                análisis de cuellos de botella y recomendaciones de mejora.
+                            </p>
+                        </div>
+                        <button onclick="openModal(4)" class="btn-primary w-full justify-center">
+                            <i data-lucide="external-link" class="w-5 h-5"></i>
+                            Ver Dashboard Interactivo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container-custom">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="mono text-sm text-blue-600 font-medium">CONÓCEME</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2">Sobre Mí</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+                    <div class="md:col-span-1 flex justify-center">
+                        <div class="w-64 h-64 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white text-6xl font-bold">
+                            MDF
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2 space-y-6">
+                        <p class="text-lg leading-relaxed">
+                            Soy un <strong>Data Scientist</strong> con una sólida experiencia en arquitectura de 
+                            <strong>Business Intelligence</strong>. Mi pasión es transformar datos complejos en 
+                            insights claros y accionables que impulsen la toma de decisiones estratégicas.
+                        </p>
+                        
+                        <p class="text-lg leading-relaxed">
+                            Actualmente trabajo en <strong>EPTA GROUP</strong>, donde he desarrollado soluciones 
+                            de BI que han optimizado procesos clave y mejorado la eficiencia operativa. Mi enfoque 
+                            combina habilidades técnicas avanzadas con una profunda comprensión del negocio.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6">
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="code-2" class="w-5 h-5 text-blue-600"></i>
+                                    Habilidades Técnicas
+                                </h3>
+                                <ul class="space-y-2 opacity-80">
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Power BI & DAX
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Power Query & ETL
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Python & SQL
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Machine Learning
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Tableau & Visualización
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                                    <i data-lucide="award" class="w-5 h-5 text-blue-600"></i>
+                                    Certificaciones
+                                </h3>
+                                <ul class="space-y-2 opacity-80">
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Deep Learning
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        SQL Expert
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Tableau Certified
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Agile Methodology
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-4 h-4 text-blue-600"></i>
+                                        Python Core
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-6">
+                            <h3 class="text-xl font-bold mb-3 flex items-center gap-2">
+                                <i data-lucide="globe" class="w-5 h-5 text-blue-600"></i>
+                                Idiomas
+                            </h3>
+                            <div class="flex flex-wrap gap-4">
+                                <span class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
+                                    Español (Nativo)
+                                </span>
+                                <span class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
+                                    Inglés (Profesional)
+                                </span>
+                                <span class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium">
+                                    Alemán (Intermedio)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container-custom">
+            <div class="max-w-3xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="mono text-sm text-blue-600 font-medium">HABLEMOS</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-2 mb-4">Contacto</h2>
+                    <p class="text-lg opacity-70">
+                        ¿Tienes un proyecto en mente? Me encantaría escucharte
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div class="flex items-center gap-4 p-6 rounded-lg border transition-all hover:border-blue-600">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="mail" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Email</h3>
+                            <a href="mailto:miguel.frutos.revilla.sb@gmail.com" class="text-blue-600 hover:underline">
+                                miguel.frutos.revilla.sb@gmail.com
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 p-6 rounded-lg border transition-all hover:border-blue-600">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="linkedin" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">LinkedIn</h3>
+                            <a href="https://www.linkedin.com/in/migueldefrutosrevilla/" target="_blank" class="text-blue-600 hover:underline">
+                                /migueldefrutosrevilla
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="space-y-6" onsubmit="handleFormSubmit(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block mb-2 font-medium">Nombre</label>
+                            <input type="text" name="name" required class="form-input" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-medium">Email</label>
+                            <input type="email" name="email" required class="form-input" placeholder="tu@email.com">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block mb-2 font-medium">Mensaje</label>
+                        <textarea name="message" rows="6" required class="form-input" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full justify-center text-lg py-4">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container-custom">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="mono text-sm">
+                    <span class="text-blue-600">{'</>'}</span> Miguel De Frutos Revilla
+                </div>
+                
+                <p class="text-sm opacity-70">
+                    © 2025 Todos los derechos reservados
+                </p>
+                
+                <div class="flex items-center gap-4">
+                    <a href="https://www.linkedin.com/in/migueldefrutosrevilla/" target="_blank" class="hover:text-blue-600 transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://github.com/Migueldfr" target="_blank" class="hover:text-blue-600 transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="p-8">
+                <h2 id="modalTitle" class="text-3xl font-bold mb-6"></h2>
+                
+                <!-- IFRAME Container -->
+                <div class="mb-8 rounded-lg overflow-hidden" style="background: #f0f0f0; min-height: 600px;">
+                    <div id="modalIframe" class="w-full" style="height: 600px; display: flex; align-items: center; justify-content: center; color: #666;">
+                        <!-- INSERTA AQUÍ EL IFRAME DEL PROYECTO DE POWER BI -->
+                        <div class="text-center p-8">
+                            <i data-lucide="bar-chart-3" class="w-16 h-16 mx-auto mb-4 opacity-30"></i>
+                            <p class="text-lg">Aquí se mostrará tu dashboard interactivo de Power BI</p>
+                            <p class="text-sm mt-2 opacity-70">Inserta el código iframe de Power BI en el JavaScript</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Details -->
+                <div id="modalDescription" class="space-y-4">
+                    <!-- Descripción detallada del proyecto -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            }
+            lucide.createIcons();
+        }
+        
+        // Load saved theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+            }
+            lucide.createIcons();
+        });
+        
+        // Project Data
+        const projects = {
+            1: {
+                title: 'Análisis de Ventas',
+                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 1 -->',
+                description: `
+                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
+                    <p class="mb-4 opacity-80">
+                        Desarrollar un dashboard completo que permita analizar el rendimiento de ventas en tiempo real, 
+                        identificar tendencias y optimizar estrategias comerciales basadas en datos.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
+                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
+                        <li>Power BI para visualización interactiva</li>
+                        <li>DAX para cálculos avanzados y KPIs</li>
+                        <li>Power Query para transformación de datos</li>
+                        <li>SQL para extracción de datos</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
+                    <ul class="list-disc list-inside opacity-80 space-y-1">
+                        <li>Reducción del 30% en tiempo de generación de reportes</li>
+                        <li>Identificación de productos con mayor potencial de crecimiento</li>
+                        <li>Optimización de inventario basada en análisis predictivo</li>
+                        <li>Mejora en la toma de decisiones estratégicas</li>
+                    </ul>
+                `
+            },
+            2: {
+                title: 'Performance Financiero',
+                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 2 -->',
+                description: `
+                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
+                    <p class="mb-4 opacity-80">
+                        Crear un dashboard financiero integral que proporcione una visión clara del estado financiero 
+                        de la empresa, incluyendo análisis de rentabilidad, flujo de caja y proyecciones.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
+                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
+                        <li>Power BI para visualización de métricas financieras</li>
+                        <li>DAX para cálculos financieros complejos</li>
+                        <li>Python para análisis predictivo</li>
+                        <li>Excel como fuente de datos complementaria</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
+                    <ul class="list-disc list-inside opacity-80 space-y-1">
+                        <li>Automatización del 80% de reportes financieros</li>
+                        <li>Mejora en la precisión de proyecciones financieras</li>
+                        <li>Identificación temprana de riesgos financieros</li>
+                        <li>Reducción de costos operativos en un 15%</li>
+                    </ul>
+                `
+            },
+            3: {
+                title: 'Análisis de Clientes',
+                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 3 -->',
+                description: `
+                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
+                    <p class="mb-4 opacity-80">
+                        Desarrollar un sistema de análisis de clientes que permita segmentar la base de clientes, 
+                        predecir comportamientos y personalizar estrategias de retención.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
+                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
+                        <li>Power BI para visualización de segmentos</li>
+                        <li>Python (Scikit-learn) para modelos de Machine Learning</li>
+                        <li>DAX para métricas de comportamiento de clientes</li>
+                        <li>Power Query para limpieza y transformación de datos</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
+                    <ul class="list-disc list-inside opacity-80 space-y-1">
+                        <li>Mejora del 25% en retención de clientes</li>
+                        <li>Identificación de clientes de alto valor (VIP)</li>
+                        <li>Reducción del churn en un 20%</li>
+                        <li>Personalización de campañas de marketing</li>
+                    </ul>
+                `
+            },
+            4: {
+                title: 'Optimización Operativa',
+                iframe: '<!-- INSERTA AQUÍ EL CÓDIGO IFRAME DE POWER BI PARA PROYECTO 4 -->',
+                description: `
+                    <h3 class="text-xl font-bold mb-3">Objetivo del Proyecto</h3>
+                    <p class="mb-4 opacity-80">
+                        Crear un dashboard operativo que permita monitorear la eficiencia de procesos, 
+                        identificar cuellos de botella y optimizar la productividad general.
+                    </p>
+                    
+                    <h3 class="text-xl font-bold mb-3">Herramientas Utilizadas</h3>
+                    <ul class="list-disc list-inside mb-4 opacity-80 space-y-1">
+                        <li>Power BI para monitoreo en tiempo real</li>
+                        <li>DAX para cálculo de KPIs operativos</li>
+                        <li>Power Automate para alertas automáticas</li>
+                        <li>SQL para integración con sistemas operativos</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-bold mb-3">Resultados Obtenidos</h3>
+                    <ul class="list-disc list-inside opacity-80 space-y-1">
+                        <li>Aumento del 35% en eficiencia operativa</li>
+                        <li>Reducción de tiempos de entrega en un 20%</li>
+                        <li>Identificación y resolución de cuellos de botella</li>
+                        <li>Mejora en la asignación de recursos</li>
+                    </ul>
+                `
+            }
+        };
+        
+        // Modal Functions
+        function openModal(projectId) {
+            const modal = document.getElementById('projectModal');
+            const project = projects[projectId];
+            
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalDescription').innerHTML = project.description;
+            
+            // Aquí es donde insertarás tus iframes de Power BI
+            const iframeContainer = document.getElementById('modalIframe');
+            iframeContainer.innerHTML = `
+                <div class="text-center p-8">
+                    <i data-lucide="bar-chart-3" class="w-16 h-16 mx-auto mb-4 opacity-30"></i>
+                    <p class="text-lg font-semibold mb-2">${project.title}</p>
+                    <p class="text-sm opacity-70">Inserta aquí el código iframe de Power BI para este proyecto</p>
+                    <p class="text-xs opacity-50 mt-4">Ejemplo de código iframe:</p>
+                    <code class="text-xs opacity-50 mt-2 block">
+                        &lt;iframe width="100%" height="600" src="TU_URL_DE_POWER_BI"&gt;&lt;/iframe&gt;
+                    </code>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Reinitialize icons
+            setTimeout(() => lucide.createIcons(), 100);
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal on outside click
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+        
+        // Form Submit Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const message = formData.get('message');
+            
+            // Aquí puedes agregar tu lógica de envío de formulario
+            // Por ahora, solo mostramos un mensaje de confirmación
+            
+            alert(`¡Gracias ${name}! Tu mensaje ha sido recibido. Te contactaré pronto a ${email}.`);
+            event.target.reset();
+            
+            return false;
+        }
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Header background on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>
