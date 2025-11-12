@@ -2017,3 +2017,408 @@ footer {
         margin-top: 100px;  
     }
 }
+
+/* --- PROYECTO DESTACADO: MULTIÓPTICAS --- */
+/* PROYECTO DESTACADO: MULTIÓPTICAS */
+/* Pega este código al final de tu archivo CSS existente.
+  Reemplaza los estilos anteriores de .project-details.*/
+
+/* --- PROYECTO DESTACADO: MULTIÓPTICAS (Estilos base) --- */
+
+.wide-project {
+  grid-column: 1 / -1; /* Ocupa todo el ancho */
+}
+
+.project-featured {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+  background: #101010;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.project-featured .image-div {
+  flex: 1.2;
+  max-height: 400px;
+  overflow: hidden;
+  padding: 0; /* Ajuste para la imagen destacada */
+}
+
+.project-featured .featured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.project-featured:hover .featured-image {
+  transform: scale(1.05);
+}
+
+.project-featured .info-div {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-featured .btn-more-info {
+  background: transparent;
+  border: 1px solid #03e6ff;
+  color: #03e6ff;
+  padding: 0.8rem 1.6rem; /* Más padding */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.6rem; /* Tamaño de fuente */
+  font-weight: 600;
+  max-width: 200px; /* Ancho máximo */
+}
+
+.project-featured .btn-more-info:hover {
+  background: #03e6ff;
+  color: #000;
+  box-shadow: 0 0 15px rgba(3, 230, 255, 0.5);
+}
+
+/* --- SECCIÓN DESPLEGABLE ANTIGUA (Oculta) --- */
+.project-details {
+  display: none; /* Ya no usamos esto */
+}
+
+
+/* =====================================================
+    NUEVOS ESTILOS PARA EL MODAL DE PANTALLA COMPLETA
+=====================================================
+*/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: none; /* Oculto por defecto */
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.open {
+  display: flex; /* Se muestra con JS */
+  opacity: 1;
+}
+
+.modal-content {
+  background: var(--color-dark-mode, #11111b); /* Color de fondo */
+  color: var(--color-white, #fff);
+  border-radius: 1.5rem;
+  padding: 3rem 3.5rem;
+  width: 90%; /* Ancho responsivo */
+  max-width: 1100px; /* Ancho máximo */
+  max-height: 90vh; /* Alto máximo, permite scroll */
+  overflow-y: auto; /* Scroll si el contenido es muy largo */
+  position: relative;
+  border: 1px solid var(--tech-stack-box-border-color, #292929);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.open .modal-content {
+  transform: scale(1);
+}
+
+/* Scrollbar personalizado para el modal */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-content::-webkit-scrollbar-track {
+    background: #11111b;
+    border-radius: 10px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: var(--color-purple, #8000ff);
+    border-radius: 10px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  font-size: 3.5rem;
+  color: var(--color-gray, #c4c4c4);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.modal-close:hover {
+  color: var(--color-white, #fff);
+  transform: rotate(90deg);
+}
+
+.modal-content h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  background: -webkit-linear-gradient(135deg, var(--color-light-blue, #6bc5f8), var(--color-light-purple, #cf59e6));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modal-features {
+  display: flex;
+  justify-content: space-around;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.feature-item {
+  flex: 1;
+  text-align: center;
+  background: var(--tech-stack-box-first-color, #1a1a29);
+  padding: 2.5rem 2rem;
+  border-radius: 1rem;
+  border: 1px solid var(--tech-stack-box-border-color, #292929);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(128, 0, 255, 0.2);
+}
+
+.feature-item .feature-icon {
+  margin-bottom: 1.5rem;
+  width: 60px;
+  height: 60px;
+}
+
+.feature-item h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-white, #fff);
+  margin-bottom: 0.8rem;
+}
+
+.feature-item p {
+  font-size: 1.5rem;
+  color: var(--color-gray, #c4c4c4);
+  line-height: 1.6;
+}
+
+/* Nueva sección de Testimonio */
+.testimonial-section {
+  text-align: center;
+  border-top: 1px solid var(--tech-stack-box-border-color, #292929);
+  padding-top: 2.5rem;
+  margin-top: 1.5rem;
+}
+
+.testimonial-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--color-purple, #8000ff);
+  margin-bottom: 1.5rem;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-photo:hover {
+  transform: scale(1.1);
+}
+
+.testimonial-section .testimonial {
+  margin-top: 0;
+  font-style: italic;
+  font-size: 1.7rem;
+  color: var(--color-ddd-color, #ddd);
+  border-left: none; /* Quitamos el borde anterior */
+  padding-left: 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.testimonial-user {
+  text-decoration: none;
+  color: var(--color-white, #fff);
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.testimonial-user:hover {
+  color: var(--color-light-blue, #6bc5f8);
+}
+
+.testimonial-user strong {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.testimonial-user span {
+  font-size: 1.4rem;
+  color: var(--color-gray, #c4c4c4);
+  font-family: 'fira code', monospace;
+}
+
+/* --- Media Query para el modal en móviles --- */
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    padding: 2.5rem 1.5rem;
+  }
+  
+  .modal-content h2 {
+    font-size: 2.4rem;
+  }
+
+  .modal-features {
+    flex-direction: column; /* Apila los iconos verticalmente */
+    gap: 1.5rem;
+  }
+
+  .feature-item {
+    padding: 1.5rem;
+  }
+
+  .feature-item h3 {
+    font-size: 1.8rem;
+  }
+
+  .feature-item p {
+    font-size: 1.4rem;
+  }
+
+  .testimonial-section .testimonial {
+    font-size: 1.5rem;
+  }
+
+  .testimonial-photo {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Ajuste para el proyecto destacado en móvil */
+  .project-featured {
+    flex-direction: column;
+    height: auto;
+  }
+  .project-featured .image-div,
+  .project-featured .info-div {
+    width: 100%;
+    flex: none;
+    max-height: 300px; /* Limita altura de imagen */
+  }
+  .project-featured .info-div {
+    max-height: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+    .project-featured .image-div {
+        max-height: 200px;
+    }
+}
+  
+/*.wide-project {
+/*  grid-column: 1 / -1; /* Ocupa todo el ancho */
+/*}
+/*
+/*.project-featured {
+/*  display: flex;
+/*  flex-direction: row;
+/*  align-items: stretch;
+/*  justify-content: space-between;
+/*  width: 100%;
+/*  background: #101010;
+/*  border-radius: 1.5rem;
+/*  overflow: hidden;
+/*  transition: all 0.4s ease;
+/*}
+/*
+/*.project-featured .image-div {
+/*  flex: 1.2;
+/*  max-height: 400px;
+/*  overflow: hidden;
+/*}
+/*
+/*.project-featured .featured-image {
+/*  width: 100%;
+/*  height: 100%;
+/*  object-fit: cover;
+/*  transition: transform .4s ease;
+/*}
+/*
+/*.project-featured:hover .featured-image {
+/*  transform: scale(1.05);
+/*}
+/*
+/*.project-featured .info-div {
+/*  flex: 1;
+/*  padding: 2rem;
+/*  display: flex;
+/*  flex-direction: column;
+/*  justify-content: center;
+/*}
+/*
+/*.project-featured .btn-more-info {
+/*  background: transparent;
+/*  border: 1px solid #03e6ff;
+/*  color: #03e6ff;
+/*  padding: 0.6rem 1.4rem;
+/*  border-radius: 8px;
+/*  cursor: pointer;
+/*  transition: all 0.3s ease;
+/*}
+/*
+/*.project-featured .btn-more-info:hover {
+/*  background: #03e6ff;
+/*  color: #000;
+/*}
+/*
+/* Sección desplegable */
+/*.project-details {
+/*  display: none;
+/*  margin-top: 1rem;
+/*  background: #181818;
+/*  border-radius: 1rem;
+/*  padding: 2rem;
+/*  animation: fadeIn 0.4s ease;
+/*}
+/*
+/*.project-details.open {
+/*  display: block;
+/*}
+/*
+/*.details-content {
+/*  max-width: 900px;
+/*  margin: 0 auto;
+/*}
+/*
+/*.testimonial {
+/*  margin-top: 1.5rem;
+/*  font-style: italic;
+/*  color: #cfcfcf;
+/*  border-left: 3px solid #03e6ff;
+/*  padding-left: 1rem;
+/*}
+/*
+/*@keyframes fadeIn {
+/*  from {opacity: 0; transform: translateY(10px);}
+//*  to {opacity: 1; transform: translateY(0);}/*

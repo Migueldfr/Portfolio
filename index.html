@@ -320,11 +320,147 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Proyecto destacado: MultiÓpticas -->
+                <div data-aos="fade-up" class="project-box-wrapper wide-project">
+                    <div class="project-box project-featured" id="multiopticas-project">
+                    
+                      <div class="image-div">
+                        <img src="src/png/MO.jpg" alt="Proyecto MultiÓpticas" class="featured-image" />
+                      </div>
+                  
+                      <div class="info-div">
+                        <article class="ProjectHeading">MultiÓpticas – Centralización de Datos y Análisis Estratégico</article>
+                        <p class="ProjectDescription">
+                          Centralización y estructuración de datos de 15 ópticas mediante la integración del software GIO con ODATA. 
+                          Reducción del 40% en el tiempo de generación de reportes y optimización de las decisiones estratégicas gracias a informes BI centralizados.
+                        </p>
+                        <div class="project-buttons">
+                          <a href="https://github.com/Migueldfr" target="_blank" class="github-redirect" aria-label="Ver código del proyecto en GitHub">
+                            <img src="src/svg/github.svg" alt="logo de github"/>
+                          </a>
+                          <!-- Botón actualizado para abrir el modal -->
+                          <button class="btn-more-info" onclick="openMultiopticasModal()">Ver más detalles</button>
+                        </div>
+                      </div>
+                    </div>
+                
+                    <!-- La sección oculta desplegable ha sido ELIMINADA -->
+                    <!-- <div id="multiopticas-details" class="project-details"> ... </div> -->
+                  </div>
+                    <!-- Proyecto destacado: MultiÓpticas -->
+                    <!--<div data-aos="fade-up" class="project-box-wrapper wide-project">
+                    <!--  <div class="project-box project-featured" id="multiopticas-project">
+                    <!--    <div class="image-div">
+                    <!--      <img src="src/png/MO.jpg" alt="Proyecto MultiÓpticas" class="featured-image" />
+                    <!--    </div>
+                    <!--    <div class="info-div">
+                    <!--      <article class="ProjectHeading">MultiÓpticas – Centralización de Datos y Análisis Estratégico</article>
+                    <!--      <p class="ProjectDescription">
+                    <!--        Centralización y estructuración de los datos de 15 ópticas mediante la integración del software GIO con ODATA.
+                    <!--        Reducción del 40% en el tiempo de generación de reportes y optimización de las decisiones estratégicas gracias a informes BI centralizados.
+                    <!--      </p>
+                    <!--      <div class="project-buttons">
+                    <!--        <a href="https://github.com/Migueldfr/multiopticas-dataviz" target="_blank" class="github-redirect" aria-label="Ver código del proyecto en GitHub">
+                    <!--          <img src="src/svg/github.svg" alt="logo de github"/>
+                    <!--        </a>
+                    <!--        <button class="btn-more-info" id="toggleDetails">Ver más detalles</button>
+                    <!--      </div>
+                    <!--    </div>
+                    <!--  </div>
+                  <!--
+                    <!--  <!-- Sección desplegable -->
+                    <!--  <div class="project-details" id="multiopticas-details">
+                    <!--    <div class="details-content">
+                    <!--    
+                    <!--      <div class="features-grid">
+                    <!--        <div class="feature-box">
+                    <!--          <img src="src/png/data_analysis.png" alt="Análisis de datos" class="feature-icon">
+                    <!--          <h3>Análisis de Datos</h3>
+                    <!--          <p>Desarrollo de dashboards en Power BI para el seguimiento de ventas, márgenes y rotación de productos. Implementación de modelos de segmentación por cliente y óptica.</p>
+                    <!--        </div>
+                    <!--    
+                    <!--        <div class="feature-box">
+                    <!--          <img src="src/png/RPA.png" alt="Automatización" class="feature-icon">
+                    <!--          <h3>Automatización</h3>
+                    <!--          <p>Integración automática entre el software GIO y la capa de análisis mediante ODATA y scripts Python programados. Reducción drástica de tareas manuales.</p>
+                    <!--        </div>
+                    <!--    
+                    <!--        <div class="feature-box">
+                    <!--          <img src="src/png/ML.png" alt="Machine Learning" class="feature-icon">
+                    <!--          <h3>Machine Learning</h3>
+                    <!--          <p>Predicción de demanda por categorías y periodos, utilizando modelos de regresión y análisis estacional para anticipar roturas de stock.</p>
+                    <!--        </div>
+                    <!--      </div>
+                    <!--  
+                    <!--      <div class="testimonial">
+                    <!--        <img src="src/png/ceo-multiopticas.jpg" alt="Foto del CEO" class="testimonial-photo">
+                    <!--        <blockquote>
+                    <!--          "Gracias al trabajo de Miguel y su equipo, ahora tenemos una visión integral del rendimiento de nuestras ópticas, con decisiones basadas en datos y una infraestructura moderna que nos ahorra horas de trabajo cada semana."
+                    <!--        </blockquote>
+                    <!--        <p class="testimonial-author">
+                    <!--          <a href="https://www.linkedin.com/in/nombre-del-ceo" target="_blank">
+                    <!--            <strong>Juan Pérez</strong> – CEO en MultiÓpticas
+                    <!--          </a>
+                    <!--        </p>
+                    <!--      </div>
+                    <!--  
+                    <!--    </div>
+                    <!--  </div>
+                    <!--</div>-->
                 </div>
             </div>
         </section>
     </main>
+    <!-- 
+    =====================================================
+        NUEVO MODAL PARA MULTIÓPTICAS
+        (Colocar esto justo antes del cierre de </body> o </main>)
+    =====================================================
+    -->
+    <div id="multiopticas-modal" class="modal-overlay">
+        <div class="modal-content">
+            <!-- Botón de cerrar -->
+            <span class="modal-close" onclick="closeMultiopticasModal()">&times;</span>
 
+            <h2>MultiÓpticas: Análisis en Profundidad</h2>
+
+            <!-- Sección de 3 características con iconos -->
+            <div class="modal-features">
+                <div class="feature-item">
+                    <!-- Icono de Análisis (SVG de ejemplo) -->
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#03e6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                    <h3>Análisis de Datos</h3>
+                    <p>Integración de datos de 15 ópticas para crear un Data Warehouse centralizado. Desarrollo de dashboards en Power BI con KPIs de rentabilidad, márgenes y conversión.</p>
+                </div>
+                <div class="feature-item">
+                    <!-- Icono de Automatización (SVG de ejemplo) -->
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#03e6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25"></path><path d="M8 16h.01"></path><path d="M8 20h.01"></path><path d="M12 18h.01"></path><path d="M12 22h.01"></path><path d="M16 16h.01"></path><path d="M16 20h.01"></path></svg>
+                    <h3>Automatización de Reportes</h3>
+                    <p>Conexión directa al software GIO mediante ODATA, eliminando la entrada manual de datos y reduciendo en un 40% el tiempo dedicado a la generación de informes.</p>
+                </div>
+                <div class="feature-item">
+                    <!-- Icono de ML (SVG de ejemplo) -->
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#03e6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    <h3>Algoritmos de ML</h3>
+                    <p>Implementación de modelos de pronóstico de demanda y análisis de cesta de la compra para optimizar el inventario y potenciar estrategias de cross-selling.</p>
+                </div>
+            </div>
+
+            <!-- Nueva sección de testimonio -->
+            <div class="testimonial-section">
+                <img src="https://media.licdn.com/dms/image/v2/D4D03AQFQeWfte7onXg/profile-displayphoto-scale_400_400/B4DZlphVrrG8Ag-/0/1758411972470?e=1764806400&v=beta&t=Lvq26lb6XBu2GdhWdD71oS4q0Hrem5B1uUHyN2687Qo" alt="Foto de CEO, MultiÓpticas Segovia" class="testimonial-photo" />
+                <blockquote class="testimonial">
+                    “Gracias al nuevo sistema de reporting, podemos tomar decisiones con datos actualizados en tiempo real. 
+                    Miguel ha conseguido que todo fluya sin depender de hojas Excel.”
+                </blockquote>
+                <a href="https://www.linkedin.com/in/ruben-khaled-594668189/" target="_blank" class="testimonial-user" aria-label="Visitar perfil de LinkedIn del CEO">
+                    <strong>Director General, MultiÓpticas</strong>
+                    <span>@Ruben Khaled</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Fin del Modal -->
     <footer id="footer">
         <button class="fas" id="backtotopbutton" onclick="scrolltoTopfunction()">
             <article aria-label="Volver arriba">&#8592; VOLVER ARRIBA</article>
