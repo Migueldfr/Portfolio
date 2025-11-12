@@ -17,8 +17,11 @@
 </head>
 
 <body class="body">
+    <audio loop="" id="audioPlayer" style="display: none">
+        <source src="src/mp3/preloader.mp3" type="audio/mp3" />
+    </audio>
     <div id="preloader"></div>
-    <noscript>Por favor, activa JavaScript para ver este sitio correctamente.</noscript>
+    <noscript>Allow Javascript</noscript>
 
     <header>
         <div class="cursor-inner" id="cursor-inner"></div>
@@ -104,8 +107,24 @@
                         <button class="letsTalkBtn">
                             <p class="letsTalkBtn-text">¡Contacta!</p>
                             <span class="letsTalkBtn-BG"></span>
-                        </button>
-                    </a>
+                        </button></a>
+                        <div class="setting-container" id="setting-container">
+                            <input type="checkbox" id="switchforsetting" onclick="settingtoggle()" />
+                
+                            <label for="switchforsetting" class="needtobeinvert" id="labelforsetting" tabindex="0"
+                              aria-label="settings for sound and appearance"></label>
+                
+                            <div class="visualmodetogglebuttoncontainer" id="visualmodetogglebuttoncontainer">
+                              <input type="checkbox" id="switchforvisualmode" onclick="visualmode()" />
+                              <label for="switchforvisualmode" id="labelforvisualmode" tabindex="0"
+                                aria-label="switch appearance"></label>
+                            </div>
+                
+                            <div class="soundtogglebuttoncontainer" id="soundtogglebuttoncontainer">
+                              <input type="checkbox" id="switchforsound" onclick="playpause()" />
+                              <label for="switchforsound" id="labelforsound" tabindex="0" aria-label="switch sound"
+                                class="needtobeinvert"></label>
+                            </div>
                 </div>
             </div>
         </section>
