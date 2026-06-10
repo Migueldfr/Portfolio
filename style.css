@@ -1126,7 +1126,8 @@ noscript {
 .stack-intro {
     width: 100%;
     margin-top: 30px;
-    line-height: 25px;
+    font-size: 1.2rem;
+    line-height: 32px;
     color: var(--color-gray)
 }
 
@@ -1158,7 +1159,7 @@ noscript {
 .stack-tag {
     display: block;
     font-family: fira code;
-    font-size: .85rem;
+    font-size: 1rem;
     letter-spacing: 1px;
     text-transform: uppercase;
     background-image: linear-gradient(90deg, var(--color-purple), var(--color-light-blue));
@@ -1169,14 +1170,15 @@ noscript {
 
 .stack-title {
     margin-top: 10px;
-    font-size: 1.6rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: var(--color-white)
 }
 
 .stack-desc {
     margin-top: 12px;
-    line-height: 24px;
+    font-size: 1.1rem;
+    line-height: 28px;
     color: var(--color-gray)
 }
 
@@ -1184,9 +1186,9 @@ noscript {
     margin-top: 16px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     font-family: fira code;
-    font-size: .9rem;
+    font-size: 1.05rem;
     color: var(--color-gray)
 }
 

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Passions+Conflict&family=Orbitron&family=Fira+Code&family=Six+Caps" />
 </head>
 
-<body class="body">
+<body class="body light-mode">
     <audio loop="" id="audioPlayer" style="display: none">
         <source src="src/mp3/preloader.mp3" type="audio/mp3" />
     </audio>
@@ -117,19 +117,19 @@
                         <div class="setting-container" id="setting-container">
                             <input type="checkbox" id="switchforsetting" onclick="settingtoggle()" />
                 
-                            <label for="switchforsetting" class="needtobeinvert" id="labelforsetting" tabindex="0"
+                            <label for="switchforsetting" class="needtobeinvert invertapplied" id="labelforsetting" tabindex="0"
                               aria-label="settings for sound and appearance"></label>
-                
+
                             <div class="visualmodetogglebuttoncontainer" id="visualmodetogglebuttoncontainer">
-                              <input type="checkbox" id="switchforvisualmode" onclick="visualmode()" />
+                              <input type="checkbox" id="switchforvisualmode" onclick="visualmode()" checked />
                               <label for="switchforvisualmode" id="labelforvisualmode" tabindex="0"
                                 aria-label="switch appearance"></label>
                             </div>
-                
+
                             <div class="soundtogglebuttoncontainer" id="soundtogglebuttoncontainer">
                               <input type="checkbox" id="switchforsound" onclick="playpause()" />
                               <label for="switchforsound" id="labelforsound" tabindex="0" aria-label="switch sound"
-                                class="needtobeinvert"></label>
+                                class="needtobeinvert invertapplied"></label>
                             </div>
                 </div>
             </div>
@@ -239,7 +239,7 @@
             </li>
 
             <li class="tech-stack-box" data-aos="fade-up">
-              <img src="./src/png/githublogo.png" alt="github skill" class="tech-stack-logo needtobeinvert" />
+              <img src="./src/png/githublogo.png" alt="github skill" class="tech-stack-logo needtobeinvert invertapplied" />
               <span class="tooltip">GITHUB</span>
             </li>
 
