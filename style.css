@@ -1107,6 +1107,94 @@ noscript {
     justify-content: center
 }
 
+.stack-section-container {
+    padding-top: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.stack-section {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center
+}
+
+.stack-intro {
+    width: 100%;
+    margin-top: 30px;
+    line-height: 25px;
+    color: var(--color-gray)
+}
+
+.stack-intro strong {
+    color: var(--color-white)
+}
+
+.stack-grid {
+    width: 100%;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px
+}
+
+.stack-card {
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid var(--tech-stack-box-border-color);
+    background-image: linear-gradient(to bottom right, var(--tech-stack-box-first-color), var(--tech-stack-box-second-color));
+    transition: transform .3s ease, border-color .3s ease
+}
+
+.stack-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-light-blue)
+}
+
+.stack-tag {
+    display: block;
+    font-family: fira code;
+    font-size: .85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background-image: linear-gradient(90deg, var(--color-purple), var(--color-light-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent
+}
+
+.stack-title {
+    margin-top: 10px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-white)
+}
+
+.stack-desc {
+    margin-top: 12px;
+    line-height: 24px;
+    color: var(--color-gray)
+}
+
+.stack-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: fira code;
+    font-size: .9rem;
+    color: var(--color-gray)
+}
+
+.stack-list li::before {
+    content: "→ ";
+    color: var(--color-light-blue)
+}
+
 .language-speak,
 .tech-stack-wrapper {
     width: 100%;
@@ -1939,6 +2027,14 @@ footer {
 
     .project-boxes-div {
         padding: 40px 0
+    }
+
+    .stack-section {
+        width: 80%
+    }
+
+    .stack-grid {
+        grid-template-columns: 1fr
     }
 }
 
