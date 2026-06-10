@@ -187,44 +187,10 @@ if (modal) {
 }
 
 // =======================================================
-// 🔹 Cierra el modal si el usuario hace scroll hacia abajo
+// 🔹 Cierra el modal si el usuario hace scroll
 // =======================================================
-let lastScrollY = window.scrollY;
-
-window.addEventListener("scroll", () => {
-  const currentScroll = window.scrollY;
-
-  // Solo actúa si el modal está abierto
-  if (modal.classList.contains("open")) {
-    // Si el usuario baja (scroll hacia abajo)
-    if (currentScroll > lastScrollY) {
-      closeMultiopticasModal();
-    }
-  }
-
-  lastScrollY = currentScroll;
-});
-
 window.addEventListener("scroll", () => {
   if (modal && modal.classList.contains("open")) {
     closeMultiopticasModal();
   }
 });
-
-//function toggleMultiopticas() {
-//  const details = document.getElementById("multiopticas-details");
-//  const button = document.querySelector(".btn-more-info");
-//  if (!details) return;
-//
-//  details.classList.toggle("open");
-//
-//  if (details.classList.contains("open")) {
-//    details.style.maxHeight = details.scrollHeight + "px";
-//    details.style.opacity = 1;
-//    button.innerText = "Cerrar detalles";
-//  } else {
-//    details.style.maxHeight = "0";
-//    details.style.opacity = 0;
-//    button.innerText = "Ver más detalles";
-//  }
-//}
