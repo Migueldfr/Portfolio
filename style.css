@@ -557,9 +557,37 @@ noscript {
     animation: 1s linear infinite alternate-reverse breath
 }
 
+.blob-2 {
+    position: absolute;
+    left: -10%;
+    bottom: -20%;
+    background-color: var(--color-light-blue);
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    filter: blur(250px);
+    opacity: .25;
+    z-index: -1;
+    animation: 6s ease-in-out infinite alternate breath
+}
+
+.blob-3 {
+    position: absolute;
+    left: 30%;
+    top: -10%;
+    background-color: var(--color-purple);
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(220px);
+    opacity: .2;
+    z-index: -1;
+    animation: 8s ease-in-out infinite alternate-reverse breath
+}
+
 @keyframes breath {
     from {
-        opacity: .3
+        opacity: .2
     }
 
     to {
@@ -1016,6 +1044,37 @@ noscript {
     line-height: 25px
 }
 
+.about-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px 0
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--tech-stack-box-border-color);
+    background-image: linear-gradient(to bottom right, var(--tech-stack-box-first-color), var(--tech-stack-box-second-color))
+}
+
+.stat-number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    background-image: linear-gradient(90deg, var(--color-purple), var(--color-light-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent
+}
+
+.stat-label {
+    font-size: .8rem;
+    color: var(--color-gray)
+}
+
 .dp {
     width: 40%;
     display: flex;
@@ -1182,6 +1241,24 @@ footer {
     transition-duration: .3s;
     border-radius: 30px;
     border: 1px solid var(--tech-stack-box-border-color)
+}
+
+.project-box2 {
+    transition: background .4s ease, border-color .4s ease, transform .3s ease
+}
+
+.project-box2:hover {
+    background: linear-gradient(135deg, var(--color-light-blue), var(--color-light-purple));
+    border-color: transparent;
+    transform: translateY(-6px)
+}
+
+.project-box2:hover .ProjectHeading {
+    color: #0a0a14
+}
+
+.project-box2:hover .ProjectDescription {
+    color: #1c1c2b
 }
 
 .info-div {
