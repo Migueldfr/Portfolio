@@ -1,11 +1,11 @@
-let dataset = { retail: [], vino: [] };
+let dataset = { retail: [], vino: [], logistica: [] };
 const charts = {};
 
 const CHART_COLORS = {
   purple: "#8000ff",
   blue: "#6bc5f8",
-  amber: "#d98c00",
-  teal: "#16a394",
+  amber: "#8f5900",
+  teal: "#0d7a6e",
   legend: "#1c1c2b"
 };
 
@@ -235,6 +235,115 @@ const SECTOR_CONFIG = {
       charts.chart3.data.datasets[1].data = monthly.map(function (m) { return m.botellasVendidas; });
       charts.chart3.update();
     }
+  },
+
+  "Logística": {
+    title: "Dashboard Demo — Logística",
+    locationLabel: "Centro",
+    locations: function () { return DemoData.HUB_NAMES; },
+    getRows: function () { return dataset.logistica; },
+    chartTitles: [
+      "Envíos Gestionados y Trazabilidad",
+      "Envíos por Centro",
+      "Tiempo de Entrega vs. Incidencias"
+    ],
+    kpis: function (rows) {
+      const k = DemoData.computeLogisticaKPIs(rows);
+      return [
+        { label: "Envíos gestionados", value: formatNumber(k.enviosGestionados) },
+        { label: "Tiempo medio de entrega (h)", value: formatDecimal(k.tiempoMedioEntrega, 1) },
+        { label: "Trazabilidad de envío", value: formatDecimal(k.trazabilidad, 1) + " %" },
+        { label: "Incidencias", value: formatDecimal(k.incidencias, 2) + " %" }
+      ];
+    },
+    tableColumns: ["Mes", "Envíos Gestionados", "Trazabilidad", "Tiempo Entrega (h)", "Incidencias (%)"],
+    tableRows: function (rows) {
+      return DemoData.aggregateLogisticaByMonth(rows).map(function (m) {
+        return [
+          m.monthName + " " + m.year,
+          formatNumber(m.enviosGestionados),
+          formatDecimal(m.trazabilidad, 1) + " %",
+          formatDecimal(m.tiempoMedioEntrega, 1),
+          formatDecimal(m.incidencias, 2) + " %"
+        ];
+      });
+    },
+    tableTotal: function (rows) {
+      const monthly = DemoData.aggregateLogisticaByMonth(rows);
+      const kpis = DemoData.computeLogisticaKPIs(rows);
+      const totalEnvios = monthly.reduce(function (sum, m) { return sum + m.enviosGestionados; }, 0);
+      return [
+        "Total", formatNumber(totalEnvios), formatDecimal(kpis.trazabilidad, 1) + " %",
+        formatDecimal(kpis.tiempoMedioEntrega, 1), formatDecimal(kpis.incidencias, 2) + " %"
+      ];
+    },
+    buildCharts: function () {
+      charts.chart1 = new Chart(document.getElementById("chart-clientes"), {
+        type: "bar",
+        data: {
+          labels: [],
+          datasets: [
+            { type: "bar", label: "Envíos gestionados", data: [], backgroundColor: CHART_COLORS.blue, yAxisID: "y" },
+            { type: "line", label: "Trazabilidad (%)", data: [], borderColor: CHART_COLORS.teal, backgroundColor: CHART_COLORS.teal, yAxisID: "y1", tension: .3 }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true, position: "left" },
+            y1: { beginAtZero: true, position: "right", grid: { drawOnChartArea: false }, max: 100 }
+          },
+          plugins: { legend: { labels: { color: CHART_COLORS.legend } } }
+        }
+      });
+
+      charts.chart2 = new Chart(document.getElementById("chart-mix-tienda"), {
+        type: "doughnut",
+        data: {
+          labels: [],
+          datasets: [{ data: [], backgroundColor: [CHART_COLORS.blue, CHART_COLORS.purple, CHART_COLORS.amber, CHART_COLORS.teal] }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: "bottom", labels: { color: CHART_COLORS.legend } } }
+        }
+      });
+
+      charts.chart3 = new Chart(document.getElementById("chart-ticket"), {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            { label: "Tiempo medio de entrega (h)", data: [], borderColor: CHART_COLORS.amber, backgroundColor: CHART_COLORS.amber, tension: .3 },
+            { label: "Incidencias (%)", data: [], borderColor: CHART_COLORS.purple, backgroundColor: CHART_COLORS.purple, tension: .3 }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true } },
+          plugins: { legend: { labels: { color: CHART_COLORS.legend } } }
+        }
+      });
+    },
+    updateCharts: function (rows) {
+      const monthly = DemoData.aggregateLogisticaByMonth(rows);
+      const byHub = DemoData.aggregateByStoreField(rows, "enviosGestionados");
+      const labels = monthly.map(function (m) { return m.monthName + " " + m.year; });
+
+      charts.chart1.data.labels = labels;
+      charts.chart1.data.datasets[0].data = monthly.map(function (m) { return m.enviosGestionados; });
+      charts.chart1.data.datasets[1].data = monthly.map(function (m) { return m.trazabilidad; });
+      charts.chart1.update();
+
+      charts.chart2.data.labels = byHub.map(function (s) { return s.store; });
+      charts.chart2.data.datasets[0].data = byHub.map(function (s) { return s.value; });
+      charts.chart2.update();
+
+      charts.chart3.data.labels = labels;
+      charts.chart3.data.datasets[0].data = monthly.map(function (m) { return m.tiempoMedioEntrega; });
+      charts.chart3.data.datasets[1].data = monthly.map(function (m) { return m.incidencias; });
+      charts.chart3.update();
+    }
   }
 };
 
@@ -336,16 +445,29 @@ function destroyCharts() {
   });
 }
 
+function withFadeTransition(updateFn) {
+  const content = document.getElementById("demo-content");
+  content.classList.add("is-updating");
+  setTimeout(function () {
+    updateFn();
+    content.classList.remove("is-updating");
+  }, 200);
+}
+
 function onSectorChange() {
-  destroyCharts();
-  SECTOR_CONFIG[currentSector()].buildCharts();
-  populateFilters();
-  renderAll();
+  withFadeTransition(function () {
+    destroyCharts();
+    SECTOR_CONFIG[currentSector()].buildCharts();
+    populateFilters();
+    renderAll();
+  });
 }
 
 function reseed() {
-  dataset = DemoData.generateDataset(Date.now());
-  renderAll();
+  withFadeTransition(function () {
+    dataset = DemoData.generateDataset(Date.now());
+    renderAll();
+  });
 }
 
 function init() {

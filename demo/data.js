@@ -1,6 +1,7 @@
 const STORE_NAMES = ["Tienda Centro", "Tienda Norte", "Tienda Sur", "Tienda Este"];
 const WINERY_NAMES = ["Bodega Valdeluz", "Bodega Los Cerros"];
-const SECTOR_NAMES = ["Retail", "Vino"];
+const HUB_NAMES = ["Hub Madrid", "Hub Valencia"];
+const SECTOR_NAMES = ["Retail", "Vino", "Logística"];
 const YEARS = [2025, 2026];
 const MONTH_NAMES = [
   "enero", "febrero", "marzo", "abril", "mayo", "junio",
@@ -62,11 +63,31 @@ function generateVinoRows(rand) {
   return rows;
 }
 
+function generateLogisticaRows(rand) {
+  const rows = [];
+  for (const year of YEARS) {
+    for (let month = 0; month < 12; month++) {
+      for (const store of HUB_NAMES) {
+        const enviosGestionados = Math.round(2000 + rand() * 6000);
+        const tiempoMedioEntrega = Number((18 + rand() * 30).toFixed(1));
+        const trazabilidad = Number((70 + rand() * 30).toFixed(1));
+        const incidencias = Number((0.5 + rand() * 4.5).toFixed(2));
+        rows.push({
+          year, month, monthName: MONTH_NAMES[month], store,
+          enviosGestionados, tiempoMedioEntrega, trazabilidad, incidencias
+        });
+      }
+    }
+  }
+  return rows;
+}
+
 function generateDataset(seed) {
   const rand = mulberry32(seed);
   return {
     retail: generateRetailRows(rand),
-    vino: generateVinoRows(rand)
+    vino: generateVinoRows(rand),
+    logistica: generateLogisticaRows(rand)
   };
 }
 
@@ -124,6 +145,16 @@ function aggregateByStore(rows) {
   });
   return Array.from(map.entries()).map(function (entry) {
     return { store: entry[0], ingresos: Number(entry[1].toFixed(2)) };
+  });
+}
+
+function aggregateByStoreField(rows, field) {
+  const map = new Map();
+  rows.forEach(function (row) {
+    map.set(row.store, (map.get(row.store) || 0) + row[field]);
+  });
+  return Array.from(map.entries()).map(function (entry) {
+    return { store: entry[0], value: Number(entry[1].toFixed(2)) };
   });
 }
 
@@ -196,11 +227,61 @@ function computeVinoKPIs(rows) {
   };
 }
 
+function aggregateLogisticaByMonth(rows) {
+  const map = new Map();
+  rows.forEach(function (row) {
+    const key = row.year + "-" + row.month;
+    if (!map.has(key)) {
+      map.set(key, {
+        year: row.year, month: row.month, monthName: row.monthName,
+        enviosGestionados: 0, tiempoMedioEntregaSum: 0,
+        trazabilidadSum: 0, incidenciasSum: 0, count: 0
+      });
+    }
+    const acc = map.get(key);
+    acc.enviosGestionados += row.enviosGestionados;
+    acc.tiempoMedioEntregaSum += row.tiempoMedioEntrega;
+    acc.trazabilidadSum += row.trazabilidad;
+    acc.incidenciasSum += row.incidencias;
+    acc.count += 1;
+  });
+  return Array.from(map.values())
+    .sort(function (a, b) { return a.year - b.year || a.month - b.month; })
+    .map(function (acc) {
+      return {
+        year: acc.year,
+        month: acc.month,
+        monthName: acc.monthName,
+        enviosGestionados: acc.enviosGestionados,
+        tiempoMedioEntrega: Number((acc.tiempoMedioEntregaSum / acc.count).toFixed(1)),
+        trazabilidad: Number((acc.trazabilidadSum / acc.count).toFixed(1)),
+        incidencias: Number((acc.incidenciasSum / acc.count).toFixed(2))
+      };
+    });
+}
+
+function computeLogisticaKPIs(rows) {
+  if (rows.length === 0) {
+    return { enviosGestionados: 0, tiempoMedioEntrega: 0, trazabilidad: 0, incidencias: 0 };
+  }
+  const enviosGestionados = rows.reduce(function (sum, row) { return sum + row.enviosGestionados; }, 0);
+  const tiempoMedioEntrega = rows.reduce(function (sum, row) { return sum + row.tiempoMedioEntrega; }, 0) / rows.length;
+  const trazabilidad = rows.reduce(function (sum, row) { return sum + row.trazabilidad; }, 0) / rows.length;
+  const incidencias = rows.reduce(function (sum, row) { return sum + row.incidencias; }, 0) / rows.length;
+  return {
+    enviosGestionados,
+    tiempoMedioEntrega: Number(tiempoMedioEntrega.toFixed(1)),
+    trazabilidad: Number(trazabilidad.toFixed(1)),
+    incidencias: Number(incidencias.toFixed(2))
+  };
+}
+
 const DemoData = {
-  STORE_NAMES, WINERY_NAMES, SECTOR_NAMES, YEARS, MONTH_NAMES,
+  STORE_NAMES, WINERY_NAMES, HUB_NAMES, SECTOR_NAMES, YEARS, MONTH_NAMES,
   mulberry32, generateDataset, getFilteredData,
   aggregateByMonth, aggregateByStore, computeKPIs,
-  aggregateVinoByMonth, computeVinoKPIs
+  aggregateVinoByMonth, computeVinoKPIs,
+  aggregateLogisticaByMonth, computeLogisticaKPIs, aggregateByStoreField
 };
 
 if (typeof module !== "undefined" && module.exports) {

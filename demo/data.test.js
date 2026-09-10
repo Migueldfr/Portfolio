@@ -4,7 +4,8 @@ const {
   mulberry32, generateDataset, getFilteredData,
   aggregateByMonth, aggregateByStore, computeKPIs,
   aggregateVinoByMonth, computeVinoKPIs,
-  STORE_NAMES, WINERY_NAMES, SECTOR_NAMES, YEARS
+  aggregateLogisticaByMonth, computeLogisticaKPIs, aggregateByStoreField,
+  STORE_NAMES, WINERY_NAMES, HUB_NAMES, SECTOR_NAMES, YEARS
 } = require("./data.js");
 
 test("mulberry32 is deterministic for a given seed", () => {
@@ -23,8 +24,8 @@ test("mulberry32 produces values within [0, 1)", () => {
   }
 });
 
-test("SECTOR_NAMES lists Retail and Vino", () => {
-  assert.deepEqual(SECTOR_NAMES, ["Retail", "Vino"]);
+test("SECTOR_NAMES lists Retail, Vino and Logística", () => {
+  assert.deepEqual(SECTOR_NAMES, ["Retail", "Vino", "Logística"]);
 });
 
 test("generateDataset produces one retail row per year/month/store combination", () => {
@@ -35,6 +36,11 @@ test("generateDataset produces one retail row per year/month/store combination",
 test("generateDataset produces one vino row per year/month/bodega combination", () => {
   const dataset = generateDataset(1);
   assert.equal(dataset.vino.length, YEARS.length * 12 * WINERY_NAMES.length);
+});
+
+test("generateDataset produces one logistica row per year/month/hub combination", () => {
+  const dataset = generateDataset(1);
+  assert.equal(dataset.logistica.length, YEARS.length * 12 * HUB_NAMES.length);
 });
 
 test("generateDataset is deterministic for the same seed", () => {
@@ -151,4 +157,48 @@ test("computeVinoKPIs aggregates revenue, bottles and production across rows", (
   assert.ok(Math.abs(kpis.ingresos - expectedIngresos) < 0.01);
   assert.equal(kpis.botellasVendidas, expectedBotellas);
   assert.equal(kpis.produccionLitros, expectedProduccion);
+});
+
+test("aggregateLogisticaByMonth collapses hubs into one row per year/month, sorted chronologically", () => {
+  const dataset = generateDataset(1);
+  const monthly = aggregateLogisticaByMonth(dataset.logistica);
+  assert.equal(monthly.length, YEARS.length * 12);
+  for (let i = 1; i < monthly.length; i++) {
+    const prev = monthly[i - 1];
+    const curr = monthly[i];
+    assert.ok(curr.year > prev.year || (curr.year === prev.year && curr.month > prev.month));
+  }
+});
+
+test("aggregateLogisticaByMonth sums enviosGestionados and averages tiempoMedioEntrega/trazabilidad/incidencias", () => {
+  const dataset = generateDataset(1);
+  const monthly = aggregateLogisticaByMonth(dataset.logistica);
+  const firstMonthRows = dataset.logistica.filter(r => r.year === monthly[0].year && r.month === monthly[0].month);
+  const expectedEnvios = firstMonthRows.reduce((sum, r) => sum + r.enviosGestionados, 0);
+  const expectedTiempo = firstMonthRows.reduce((sum, r) => sum + r.tiempoMedioEntrega, 0) / firstMonthRows.length;
+  assert.equal(monthly[0].enviosGestionados, expectedEnvios);
+  assert.ok(Math.abs(monthly[0].tiempoMedioEntrega - expectedTiempo) < 0.05);
+});
+
+test("computeLogisticaKPIs returns zeroed KPIs for an empty dataset", () => {
+  const kpis = computeLogisticaKPIs([]);
+  assert.deepEqual(kpis, { enviosGestionados: 0, tiempoMedioEntrega: 0, trazabilidad: 0, incidencias: 0 });
+});
+
+test("computeLogisticaKPIs aggregates shipments and averages the rate metrics across rows", () => {
+  const dataset = generateDataset(1);
+  const kpis = computeLogisticaKPIs(dataset.logistica);
+  const expectedEnvios = dataset.logistica.reduce((sum, r) => sum + r.enviosGestionados, 0);
+  const expectedIncidencias = dataset.logistica.reduce((sum, r) => sum + r.incidencias, 0) / dataset.logistica.length;
+  assert.equal(kpis.enviosGestionados, expectedEnvios);
+  assert.ok(Math.abs(kpis.incidencias - expectedIncidencias) < 0.01);
+});
+
+test("aggregateByStoreField sums an arbitrary numeric field per store", () => {
+  const dataset = generateDataset(1);
+  const byHub = aggregateByStoreField(dataset.logistica, "enviosGestionados");
+  assert.equal(byHub.length, HUB_NAMES.length);
+  const totalFromHubs = byHub.reduce((sum, s) => sum + s.value, 0);
+  const totalFromRows = dataset.logistica.reduce((sum, r) => sum + r.enviosGestionados, 0);
+  assert.equal(totalFromHubs, totalFromRows);
 });

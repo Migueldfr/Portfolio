@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content="Dashboard demo interactivo con datos 100% simulados, construido por Miguel de Frutos Revilla para mostrar el tipo de informes Power BI / BI que desarrolla." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dashboard Demo Interactivo | Miguel de Frutos Revilla" />
+    <meta property="og:description" content="Explora un dashboard BI en vivo con datos 100% simulados: filtra, cambia de sector y genera nuevos escenarios al instante." />
+    <meta property="og:image" content="https://migueldfr.github.io/Portfolio/src/svg/demo-dashboard-preview.svg" />
+    <meta property="og:url" content="https://migueldfr.github.io/Portfolio/demo/index.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dashboard Demo Interactivo | Miguel de Frutos Revilla" />
+    <meta name="twitter:description" content="Explora un dashboard BI en vivo con datos 100% simulados: filtra, cambia de sector y genera nuevos escenarios al instante." />
+    <meta name="twitter:image" content="https://migueldfr.github.io/Portfolio/src/svg/demo-dashboard-preview.svg" />
     <title>Dashboard Demo (datos simulados) | Miguel de Frutos Revilla</title>
     <link rel="icon" type="image/x-icon" href="../src/png/nav-avatar.png" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" />
@@ -19,12 +28,17 @@
         <a class="demo-back-link" href="../index.html#projects">&larr; Volver al portfolio</a>
     </header>
 
+    <p class="demo-intro">
+        Este dashboard funciona enteramente en tu navegador con datos ficticios generados al vuelo — ningún dato de cliente real. Cambia de sector, filtra por año/mes/tienda y pulsa "Generar nuevo escenario" para ver cómo reaccionan los KPIs, las gráficas y la tabla en tiempo real.
+    </p>
+
     <section class="demo-filters" aria-label="Filtros del dashboard">
         <div class="demo-filter">
             <label for="filter-sector">Sector</label>
             <select id="filter-sector">
                 <option value="Retail">Retail</option>
                 <option value="Vino">Vino</option>
+                <option value="Logística">Logística</option>
             </select>
         </div>
         <div class="demo-filter">
@@ -42,6 +56,7 @@
         <button id="btn-reseed" class="demo-reseed-btn" type="button">🎲 Generar nuevo escenario</button>
     </section>
 
+    <div id="demo-content">
     <section class="demo-kpis" aria-label="Indicadores clave">
         <div class="demo-kpi-card">
             <span class="demo-kpi-number" id="kpi-value-1">-</span>
@@ -90,6 +105,7 @@
             </table>
         </div>
     </section>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt" crossorigin="anonymous"></script>
     <script src="data.js"></script>

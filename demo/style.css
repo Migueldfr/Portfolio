@@ -6,8 +6,8 @@
     --demo-text-muted: #5a5a5a;
     --demo-purple: #8000ff;
     --demo-blue: #6bc5f8;
-    --demo-amber: #d98c00;
-    --demo-teal: #16a394;
+    --demo-amber: #8f5900;
+    --demo-teal: #0d7a6e;
 }
 
 * {
@@ -62,6 +62,22 @@ body {
     text-decoration: underline;
 }
 
+.demo-intro {
+    max-width: 720px;
+    margin: 0 0 20px;
+    font-size: .85rem;
+    line-height: 1.5;
+    color: var(--demo-text-muted);
+}
+
+#demo-content {
+    transition: opacity .2s ease;
+}
+
+#demo-content.is-updating {
+    opacity: .35;
+}
+
 .demo-filters {
     display: flex;
     flex-wrap: wrap;
@@ -94,7 +110,7 @@ body {
 }
 
 .demo-reseed-btn {
-    background: linear-gradient(90deg, var(--demo-purple), var(--demo-blue));
+    background: linear-gradient(90deg, var(--demo-purple), #2570b0);
     color: #fff;
     border: none;
     border-radius: 8px;
