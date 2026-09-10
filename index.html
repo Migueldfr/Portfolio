@@ -51,6 +51,9 @@
                     <li class="projects" data-aos="fade-down" data-aos-delay="700">
                         <a href="#projects" aria-label="Botón de menú Proyectos">&#60;/Proyectos&#62;</a>
                     </li>
+                    <li class="demo-link" data-aos="fade-down" data-aos-delay="800">
+                        <a href="demo-dashboard.html" target="_blank" aria-label="Abrir dashboard demo interactivo">&#60;/Demo&#62;</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -73,6 +76,7 @@
                 <li class="mobile-navbar-tabs-li skills" onclick="hidemenubyli()"><a href="#skills">&#60;/Habilidades&#62;</a></li>
                 <li class="mobile-navbar-tabs-li stack" onclick="hidemenubyli()"><a href="#stack">&#60;/Áreas&#62;</a></li>
                 <li class="mobile-navbar-tabs-li projects" onclick="hidemenubyli()"><a href="#projects">&#60;/Proyectos&#62;</a></li>
+                <li class="mobile-navbar-tabs-li demo-link" onclick="hidemenubyli()"><a href="demo-dashboard.html" target="_blank">&#60;/Demo&#62;</a></li>
             </ul>
         </div>
 
@@ -419,6 +423,31 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Proyecto destacado: MultiÓpticas -->
+                <div data-aos="fade-up" class="project-box-wrapper wide-project">
+                    <div class="project-box project-featured" id="multiopticas-project">
+                    
+                      <div class="image-div">
+                        <img src="src/png/MO.jpg" alt="Proyecto MultiÓpticas" class="featured-image" />
+                      </div>
+                  
+                      <div class="info-div">
+                        <article class="ProjectHeading">MultiÓpticas – Centralización de Datos y Análisis Estratégico</article>
+                        <p class="ProjectDescription">
+                          Centralización y estructuración de datos de 15 ópticas mediante la integración del software GIO con ODATA. 
+                          Reducción del 40% en el tiempo de generación de reportes y optimización de las decisiones estratégicas gracias a informes BI centralizados.
+                        </p>
+                        <div class="project-buttons">
+                          <a href="https://github.com/Migueldfr" target="_blank" class="github-redirect" aria-label="Ver código del proyecto en GitHub">
+                            <img src="src/svg/github.svg" alt="logo de github"/>
+                          </a>
+                          <!-- Botón actualizado para abrir el modal -->
+                          <button class="btn-more-info" onclick="openMultiopticasModal()">Ver más detalles</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
                     <div data-aos="fade-up" class="project-box-wrapper">
                         <div class="project-box project-box2" id="project-box-demo">
                             <div class="info-div">
@@ -448,31 +477,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Proyecto destacado: MultiÓpticas -->
-                <div data-aos="fade-up" class="project-box-wrapper wide-project">
-                    <div class="project-box project-featured" id="multiopticas-project">
-                    
-                      <div class="image-div">
-                        <img src="src/png/MO.jpg" alt="Proyecto MultiÓpticas" class="featured-image" />
-                      </div>
-                  
-                      <div class="info-div">
-                        <article class="ProjectHeading">MultiÓpticas – Centralización de Datos y Análisis Estratégico</article>
-                        <p class="ProjectDescription">
-                          Centralización y estructuración de datos de 15 ópticas mediante la integración del software GIO con ODATA. 
-                          Reducción del 40% en el tiempo de generación de reportes y optimización de las decisiones estratégicas gracias a informes BI centralizados.
-                        </p>
-                        <div class="project-buttons">
-                          <a href="https://github.com/Migueldfr" target="_blank" class="github-redirect" aria-label="Ver código del proyecto en GitHub">
-                            <img src="src/svg/github.svg" alt="logo de github"/>
-                          </a>
-                          <!-- Botón actualizado para abrir el modal -->
-                          <button class="btn-more-info" onclick="openMultiopticasModal()">Ver más detalles</button>
-                        </div>
-                      </div>
-                    </div>
-                
-                  </div>
                 </div>
             </div>
         </section>

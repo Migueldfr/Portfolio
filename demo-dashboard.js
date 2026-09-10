@@ -114,8 +114,9 @@ function renderAll() {
 function createCharts() {
   const purple = "#8000ff";
   const blue = "#6bc5f8";
-  const amber = "#ffb020";
-  const teal = "#2dd4bf";
+  const amber = "#d98c00";
+  const teal = "#16a394";
+  const legendColor = "#1c1c2b";
 
   charts.clientes = new Chart(document.getElementById("chart-clientes"), {
     type: "bar",
@@ -133,7 +134,7 @@ function createCharts() {
         y: { beginAtZero: true, position: "left" },
         y1: { beginAtZero: true, position: "right", grid: { drawOnChartArea: false } }
       },
-      plugins: { legend: { labels: { color: "#f2f2f2" } } }
+      plugins: { legend: { labels: { color: legendColor } } }
     }
   });
 
@@ -145,7 +146,7 @@ function createCharts() {
     },
     options: {
       responsive: true,
-      plugins: { legend: { position: "bottom", labels: { color: "#f2f2f2" } } }
+      plugins: { legend: { position: "bottom", labels: { color: legendColor } } }
     }
   });
 
@@ -161,7 +162,7 @@ function createCharts() {
     options: {
       responsive: true,
       scales: { y: { beginAtZero: true } },
-      plugins: { legend: { labels: { color: "#f2f2f2" } } }
+      plugins: { legend: { labels: { color: legendColor } } }
     }
   });
 }

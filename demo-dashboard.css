@@ -1,13 +1,13 @@
 :root {
-    --demo-bg: #121317;
-    --demo-card-bg: #1c1e24;
-    --demo-card-border: #2b2e37;
-    --demo-text: #f2f2f2;
-    --demo-text-muted: #9a9ea8;
+    --demo-bg: #ece7e1;
+    --demo-card-bg: #e7e2db;
+    --demo-card-border: #dad5cf;
+    --demo-text: #1c1c2b;
+    --demo-text-muted: #5a5a5a;
     --demo-purple: #8000ff;
     --demo-blue: #6bc5f8;
-    --demo-amber: #ffb020;
-    --demo-teal: #2dd4bf;
+    --demo-amber: #d98c00;
+    --demo-teal: #16a394;
 }
 
 * {
@@ -47,13 +47,13 @@ body {
     font-size: .7rem;
     padding: 4px 10px;
     border-radius: 999px;
-    background: rgba(128, 0, 255, .15);
-    color: var(--demo-blue);
-    border: 1px solid rgba(107, 197, 248, .4);
+    background: rgba(128, 0, 255, .1);
+    color: var(--demo-purple);
+    border: 1px solid rgba(128, 0, 255, .3);
 }
 
 .demo-back-link {
-    color: var(--demo-blue);
+    color: var(--demo-purple);
     text-decoration: none;
     font-size: .85rem;
 }
@@ -211,7 +211,7 @@ body {
 }
 
 .demo-table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, .02);
+    background: rgba(0, 0, 0, .03);
 }
 
 .demo-table tfoot tr {
