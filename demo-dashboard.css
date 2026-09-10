@@ -1,0 +1,236 @@
+:root {
+    --demo-bg: #121317;
+    --demo-card-bg: #1c1e24;
+    --demo-card-border: #2b2e37;
+    --demo-text: #f2f2f2;
+    --demo-text-muted: #9a9ea8;
+    --demo-purple: #8000ff;
+    --demo-blue: #6bc5f8;
+    --demo-amber: #ffb020;
+    --demo-teal: #2dd4bf;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px clamp(16px, 4vw, 48px) 48px;
+    background: var(--demo-bg);
+    color: var(--demo-text);
+    font-family: "Fira Code", monospace, sans-serif;
+}
+
+.demo-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.demo-header-titles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.demo-header-titles h1 {
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.demo-badge {
+    font-size: .7rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(128, 0, 255, .15);
+    color: var(--demo-blue);
+    border: 1px solid rgba(107, 197, 248, .4);
+}
+
+.demo-back-link {
+    color: var(--demo-blue);
+    text-decoration: none;
+    font-size: .85rem;
+}
+
+.demo-back-link:hover {
+    text-decoration: underline;
+}
+
+.demo-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.demo-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.demo-filter label {
+    font-size: .7rem;
+    color: var(--demo-text-muted);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.demo-filter select {
+    background: var(--demo-card-bg);
+    color: var(--demo-text);
+    border: 1px solid var(--demo-card-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: inherit;
+    min-width: 140px;
+}
+
+.demo-reseed-btn {
+    background: linear-gradient(90deg, var(--demo-purple), var(--demo-blue));
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: .85rem;
+    cursor: pointer;
+}
+
+.demo-reseed-btn:hover {
+    filter: brightness(1.1);
+}
+
+.demo-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.demo-kpi-card {
+    background: var(--demo-card-bg);
+    border: 1px solid var(--demo-card-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.demo-kpi-number {
+    font-size: 1.9rem;
+    font-weight: 700;
+    background-image: linear-gradient(90deg, var(--demo-purple), var(--demo-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.demo-kpi-label {
+    font-size: .78rem;
+    color: var(--demo-text-muted);
+}
+
+.demo-charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.demo-chart-wide {
+    grid-column: 1 / -1;
+}
+
+.demo-chart-box {
+    background: var(--demo-card-bg);
+    border: 1px solid var(--demo-card-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.demo-chart-box h2 {
+    font-size: .95rem;
+    margin: 0 0 12px;
+    color: var(--demo-text-muted);
+    font-weight: 500;
+}
+
+.demo-chart-box canvas {
+    max-height: 320px;
+}
+
+.demo-table-section {
+    background: var(--demo-card-bg);
+    border: 1px solid var(--demo-card-border);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.demo-table-section h2 {
+    font-size: .95rem;
+    margin: 0 0 12px;
+    color: var(--demo-text-muted);
+    font-weight: 500;
+}
+
+.demo-table-wrapper {
+    overflow-x: auto;
+}
+
+.demo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .82rem;
+}
+
+.demo-table th,
+.demo-table td {
+    padding: 8px 12px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.demo-table th:first-child,
+.demo-table td:first-child {
+    text-align: left;
+}
+
+.demo-table thead th {
+    color: var(--demo-text-muted);
+    border-bottom: 1px solid var(--demo-card-border);
+    font-weight: 500;
+}
+
+.demo-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, .02);
+}
+
+.demo-table tfoot tr {
+    font-weight: 700;
+    border-top: 2px solid var(--demo-card-border);
+}
+
+@media (max-width: 768px) {
+    .demo-kpis {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .demo-charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 430px) {
+    .demo-kpis {
+        grid-template-columns: 1fr;
+    }
+}

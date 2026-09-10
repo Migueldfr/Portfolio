@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Dashboard demo interactivo con datos 100% simulados, construido por Miguel de Frutos Revilla para mostrar el tipo de informes Power BI / BI que desarrolla." />
+    <title>Dashboard Demo (datos simulados) | Miguel de Frutos Revilla</title>
+    <link rel="icon" type="image/x-icon" href="src/png/nav-avatar.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" />
+    <link rel="stylesheet" href="demo-dashboard.css" />
+</head>
+<body>
+    <header class="demo-header">
+        <div class="demo-header-titles">
+            <h1>Dashboard Demo — Retail</h1>
+            <span class="demo-badge">Datos 100% simulados</span>
+        </div>
+        <a class="demo-back-link" href="index.html#projects">&larr; Volver al portfolio</a>
+    </header>
+
+    <section class="demo-filters" aria-label="Filtros del dashboard">
+        <div class="demo-filter">
+            <label for="filter-year">Año</label>
+            <select id="filter-year"></select>
+        </div>
+        <div class="demo-filter">
+            <label for="filter-month">Mes</label>
+            <select id="filter-month"></select>
+        </div>
+        <div class="demo-filter">
+            <label for="filter-store">Tienda</label>
+            <select id="filter-store"></select>
+        </div>
+        <button id="btn-reseed" class="demo-reseed-btn" type="button">🎲 Generar nuevo escenario</button>
+    </section>
+
+    <section class="demo-kpis" aria-label="Indicadores clave">
+        <div class="demo-kpi-card">
+            <span class="demo-kpi-number" id="kpi-ingresos">-</span>
+            <span class="demo-kpi-label">Ingresos totales (€)</span>
+        </div>
+        <div class="demo-kpi-card">
+            <span class="demo-kpi-number" id="kpi-clientes">-</span>
+            <span class="demo-kpi-label">Clientes totales</span>
+        </div>
+        <div class="demo-kpi-card">
+            <span class="demo-kpi-number" id="kpi-ticket">-</span>
+            <span class="demo-kpi-label">Ticket medio (€)</span>
+        </div>
+        <div class="demo-kpi-card">
+            <span class="demo-kpi-number" id="kpi-conversion">-</span>
+            <span class="demo-kpi-label">Tasa de conversión</span>
+        </div>
+    </section>
+
+    <section class="demo-charts" aria-label="Gráficos">
+        <div class="demo-chart-box">
+            <h2>Evolución de Clientes</h2>
+            <canvas id="chart-clientes"></canvas>
+        </div>
+        <div class="demo-chart-box">
+            <h2>Ingresos por Tienda</h2>
+            <canvas id="chart-mix-tienda"></canvas>
+        </div>
+        <div class="demo-chart-box demo-chart-wide">
+            <h2>Ticket Medio (Nuevos vs. Antiguos)</h2>
+            <canvas id="chart-ticket"></canvas>
+        </div>
+    </section>
+
+    <section class="demo-table-section" aria-label="Tabla resumen mensual">
+        <h2>Resumen mensual</h2>
+        <div class="demo-table-wrapper">
+            <table class="demo-table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Clientes Nuevos</th>
+                        <th>Clientes Antiguos</th>
+                        <th>Tasa Adquisición</th>
+                        <th>Ticket Nuevos (€)</th>
+                        <th>Ticket Antiguos (€)</th>
+                        <th>Ingresos (€)</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+                <tfoot>
+                    <tr id="table-total-row"></tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt" crossorigin="anonymous"></script>
+    <script src="demo-dashboard-data.js"></script>
+    <script src="demo-dashboard.js"></script>
+</body>
+</html>
