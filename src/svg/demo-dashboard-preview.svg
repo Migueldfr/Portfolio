@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360" role="img" aria-label="Ilustración de un dashboard con KPIs, gráfico de barras y gráfico circular">
+  <rect x="0" y="0" width="480" height="360" rx="24" fill="#121317" />
+  <rect x="24" y="24" width="96" height="56" rx="10" fill="#1c1e24" stroke="#2b2e37" />
+  <text x="40" y="58" font-family="monospace" font-size="22" font-weight="700" fill="#8000ff">+10</text>
+  <rect x="136" y="24" width="96" height="56" rx="10" fill="#1c1e24" stroke="#2b2e37" />
+  <text x="150" y="58" font-family="monospace" font-size="22" font-weight="700" fill="#6bc5f8">-40%</text>
+  <rect x="248" y="24" width="96" height="56" rx="10" fill="#1c1e24" stroke="#2b2e37" />
+  <text x="266" y="58" font-family="monospace" font-size="22" font-weight="700" fill="#ffb020">3</text>
+  <rect x="24" y="104" width="200" height="232" rx="14" fill="#1c1e24" stroke="#2b2e37" />
+  <rect x="46" y="260" width="24" height="56" rx="4" fill="#8000ff" />
+  <rect x="86" y="220" width="24" height="96" rx="4" fill="#6bc5f8" />
+  <rect x="126" y="240" width="24" height="76" rx="4" fill="#8000ff" />
+  <rect x="166" y="200" width="24" height="116" rx="4" fill="#6bc5f8" />
+  <polyline points="58,230 98,180 138,210 178,150" fill="none" stroke="#ffb020" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="248" y="104" width="208" height="232" rx="14" fill="#1c1e24" stroke="#2b2e37" />
+  <circle cx="352" cy="190" r="64" fill="none" stroke="#8000ff" stroke-width="24" stroke-dasharray="180 220" />
+  <circle cx="352" cy="190" r="64" fill="none" stroke="#6bc5f8" stroke-width="24" stroke-dasharray="120 280" stroke-dashoffset="-180" />
+  <rect x="272" y="276" width="164" height="10" rx="5" fill="#2b2e37" />
+  <rect x="272" y="296" width="120" height="10" rx="5" fill="#2b2e37" />
+</svg>
