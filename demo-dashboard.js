@@ -33,7 +33,17 @@ function populateFilters() {
 }
 
 function formatNumber(value) {
-  return new Intl.NumberFormat("es-ES").format(value);
+  return new Intl.NumberFormat("es-ES", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  }).format(value);
+}
+
+function formatDecimal(value, digits) {
+  return new Intl.NumberFormat("es-ES", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits
+  }).format(value);
 }
 
 function renderKPIs(rows) {
@@ -41,7 +51,7 @@ function renderKPIs(rows) {
   document.getElementById("kpi-ingresos").textContent = formatNumber(kpis.ingresos) + " €";
   document.getElementById("kpi-clientes").textContent = formatNumber(kpis.clientes);
   document.getElementById("kpi-ticket").textContent = formatNumber(kpis.ticketMedio) + " €";
-  document.getElementById("kpi-conversion").textContent = kpis.tasaConversion + " %";
+  document.getElementById("kpi-conversion").textContent = formatDecimal(kpis.tasaConversion, 2) + " %";
 }
 
 function renderCharts(rows) {
@@ -73,9 +83,9 @@ function renderTable(rows) {
       "<td>" + m.monthName + " " + m.year + "</td>" +
       "<td>" + formatNumber(m.clientesNuevos) + "</td>" +
       "<td>" + formatNumber(m.clientesAntiguos) + "</td>" +
-      "<td>" + m.tasaAdquisicion + " %</td>" +
-      "<td>" + m.ticketMedioNuevos + "</td>" +
-      "<td>" + m.ticketMedioAntiguos + "</td>" +
+      "<td>" + formatDecimal(m.tasaAdquisicion, 2) + " %</td>" +
+      "<td>" + formatDecimal(m.ticketMedioNuevos, 2) + "</td>" +
+      "<td>" + formatDecimal(m.ticketMedioAntiguos, 2) + "</td>" +
       "<td>" + formatNumber(m.ingresos) + "</td>" +
       "</tr>";
   }).join("");
@@ -158,7 +168,6 @@ function createCharts() {
 
 function reseed() {
   dataset = DemoData.generateDataset(Date.now());
-  populateFilters();
   renderAll();
 }
 
