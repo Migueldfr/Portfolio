@@ -5,7 +5,7 @@ const {
   aggregateByMonth, aggregateByStore, computeKPIs,
   aggregateVinoByMonth, computeVinoKPIs,
   STORE_NAMES, WINERY_NAMES, SECTOR_NAMES, YEARS
-} = require("./demo-dashboard-data.js");
+} = require("./data.js");
 
 test("mulberry32 is deterministic for a given seed", () => {
   const a = mulberry32(42);
