@@ -1,4 +1,6 @@
 const STORE_NAMES = ["Tienda Centro", "Tienda Norte", "Tienda Sur", "Tienda Este"];
+const WINERY_NAMES = ["Bodega Valdeluz", "Bodega Los Cerros"];
+const SECTOR_NAMES = ["Retail", "Vino"];
 const YEARS = [2025, 2026];
 const MONTH_NAMES = [
   "enero", "febrero", "marzo", "abril", "mayo", "junio",
@@ -15,8 +17,7 @@ function mulberry32(seed) {
   };
 }
 
-function generateDataset(seed) {
-  const rand = mulberry32(seed);
+function generateRetailRows(rand) {
   const rows = [];
   for (const year of YEARS) {
     for (let month = 0; month < 12; month++) {
@@ -39,6 +40,34 @@ function generateDataset(seed) {
     }
   }
   return rows;
+}
+
+function generateVinoRows(rand) {
+  const rows = [];
+  for (const year of YEARS) {
+    for (let month = 0; month < 12; month++) {
+      for (const store of WINERY_NAMES) {
+        const trazabilidad = Number((60 + rand() * 40).toFixed(1));
+        const botellasVendidas = Math.round(800 + rand() * 2200);
+        const precioMedio = Number((8 + rand() * 12).toFixed(2));
+        const produccionLitros = Math.round(1000 + rand() * 4000);
+        const ingresos = Number((botellasVendidas * precioMedio).toFixed(2));
+        rows.push({
+          year, month, monthName: MONTH_NAMES[month], store,
+          trazabilidad, botellasVendidas, produccionLitros, ingresos
+        });
+      }
+    }
+  }
+  return rows;
+}
+
+function generateDataset(seed) {
+  const rand = mulberry32(seed);
+  return {
+    retail: generateRetailRows(rand),
+    vino: generateVinoRows(rand)
+  };
 }
 
 function getFilteredData(rows, filters) {
@@ -118,10 +147,60 @@ function computeKPIs(rows) {
   };
 }
 
+function aggregateVinoByMonth(rows) {
+  const map = new Map();
+  rows.forEach(function (row) {
+    const key = row.year + "-" + row.month;
+    if (!map.has(key)) {
+      map.set(key, {
+        year: row.year, month: row.month, monthName: row.monthName,
+        botellasVendidas: 0, ingresos: 0, produccionLitros: 0,
+        trazabilidadSum: 0, count: 0
+      });
+    }
+    const acc = map.get(key);
+    acc.botellasVendidas += row.botellasVendidas;
+    acc.ingresos += row.ingresos;
+    acc.produccionLitros += row.produccionLitros;
+    acc.trazabilidadSum += row.trazabilidad;
+    acc.count += 1;
+  });
+  return Array.from(map.values())
+    .sort(function (a, b) { return a.year - b.year || a.month - b.month; })
+    .map(function (acc) {
+      return {
+        year: acc.year,
+        month: acc.month,
+        monthName: acc.monthName,
+        botellasVendidas: acc.botellasVendidas,
+        ingresos: Number(acc.ingresos.toFixed(2)),
+        produccionLitros: acc.produccionLitros,
+        trazabilidad: Number((acc.trazabilidadSum / acc.count).toFixed(1))
+      };
+    });
+}
+
+function computeVinoKPIs(rows) {
+  if (rows.length === 0) {
+    return { ingresos: 0, trazabilidad: 0, botellasVendidas: 0, produccionLitros: 0 };
+  }
+  const ingresos = rows.reduce(function (sum, row) { return sum + row.ingresos; }, 0);
+  const botellasVendidas = rows.reduce(function (sum, row) { return sum + row.botellasVendidas; }, 0);
+  const produccionLitros = rows.reduce(function (sum, row) { return sum + row.produccionLitros; }, 0);
+  const trazabilidad = rows.reduce(function (sum, row) { return sum + row.trazabilidad; }, 0) / rows.length;
+  return {
+    ingresos: Number(ingresos.toFixed(2)),
+    trazabilidad: Number(trazabilidad.toFixed(1)),
+    botellasVendidas,
+    produccionLitros
+  };
+}
+
 const DemoData = {
-  STORE_NAMES, YEARS, MONTH_NAMES,
+  STORE_NAMES, WINERY_NAMES, SECTOR_NAMES, YEARS, MONTH_NAMES,
   mulberry32, generateDataset, getFilteredData,
-  aggregateByMonth, aggregateByStore, computeKPIs
+  aggregateByMonth, aggregateByStore, computeKPIs,
+  aggregateVinoByMonth, computeVinoKPIs
 };
 
 if (typeof module !== "undefined" && module.exports) {

@@ -13,13 +13,20 @@
 <body>
     <header class="demo-header">
         <div class="demo-header-titles">
-            <h1>Dashboard Demo — Retail</h1>
+            <h1 id="demo-title">Dashboard Demo</h1>
             <span class="demo-badge">Datos 100% simulados</span>
         </div>
         <a class="demo-back-link" href="index.html#projects">&larr; Volver al portfolio</a>
     </header>
 
     <section class="demo-filters" aria-label="Filtros del dashboard">
+        <div class="demo-filter">
+            <label for="filter-sector">Sector</label>
+            <select id="filter-sector">
+                <option value="Retail">Retail</option>
+                <option value="Vino">Vino</option>
+            </select>
+        </div>
         <div class="demo-filter">
             <label for="filter-year">Año</label>
             <select id="filter-year"></select>
@@ -29,7 +36,7 @@
             <select id="filter-month"></select>
         </div>
         <div class="demo-filter">
-            <label for="filter-store">Tienda</label>
+            <label for="filter-store" id="filter-store-label">Tienda</label>
             <select id="filter-store"></select>
         </div>
         <button id="btn-reseed" class="demo-reseed-btn" type="button">🎲 Generar nuevo escenario</button>
@@ -37,34 +44,34 @@
 
     <section class="demo-kpis" aria-label="Indicadores clave">
         <div class="demo-kpi-card">
-            <span class="demo-kpi-number" id="kpi-ingresos">-</span>
-            <span class="demo-kpi-label">Ingresos totales (€)</span>
+            <span class="demo-kpi-number" id="kpi-value-1">-</span>
+            <span class="demo-kpi-label" id="kpi-label-1">Ingresos totales (€)</span>
         </div>
         <div class="demo-kpi-card">
-            <span class="demo-kpi-number" id="kpi-clientes">-</span>
-            <span class="demo-kpi-label">Clientes totales</span>
+            <span class="demo-kpi-number" id="kpi-value-2">-</span>
+            <span class="demo-kpi-label" id="kpi-label-2">Clientes totales</span>
         </div>
         <div class="demo-kpi-card">
-            <span class="demo-kpi-number" id="kpi-ticket">-</span>
-            <span class="demo-kpi-label">Ticket medio (€)</span>
+            <span class="demo-kpi-number" id="kpi-value-3">-</span>
+            <span class="demo-kpi-label" id="kpi-label-3">Ticket medio (€)</span>
         </div>
         <div class="demo-kpi-card">
-            <span class="demo-kpi-number" id="kpi-conversion">-</span>
-            <span class="demo-kpi-label">Tasa de conversión</span>
+            <span class="demo-kpi-number" id="kpi-value-4">-</span>
+            <span class="demo-kpi-label" id="kpi-label-4">Tasa de conversión</span>
         </div>
     </section>
 
     <section class="demo-charts" aria-label="Gráficos">
         <div class="demo-chart-box">
-            <h2>Evolución de Clientes</h2>
+            <h2 id="chart-title-1">Evolución de Clientes</h2>
             <canvas id="chart-clientes"></canvas>
         </div>
         <div class="demo-chart-box">
-            <h2>Ingresos por Tienda</h2>
+            <h2 id="chart-title-2">Ingresos por Tienda</h2>
             <canvas id="chart-mix-tienda"></canvas>
         </div>
         <div class="demo-chart-box demo-chart-wide">
-            <h2>Ticket Medio (Nuevos vs. Antiguos)</h2>
+            <h2 id="chart-title-3">Ticket Medio (Nuevos vs. Antiguos)</h2>
             <canvas id="chart-ticket"></canvas>
         </div>
     </section>
@@ -74,15 +81,7 @@
         <div class="demo-table-wrapper">
             <table class="demo-table">
                 <thead>
-                    <tr>
-                        <th>Mes</th>
-                        <th>Clientes Nuevos</th>
-                        <th>Clientes Antiguos</th>
-                        <th>Tasa Adquisición</th>
-                        <th>Ticket Nuevos (€)</th>
-                        <th>Ticket Antiguos (€)</th>
-                        <th>Ingresos (€)</th>
-                    </tr>
+                    <tr id="table-head-row"></tr>
                 </thead>
                 <tbody id="table-body"></tbody>
                 <tfoot>
