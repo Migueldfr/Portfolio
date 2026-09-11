@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Demo interactiva de chatbot sobre documentos, 100% simulado y offline, construida por Miguel de Frutos Revilla." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Demo de Chatbot sobre Documentos | Miguel de Frutos Revilla" />
+    <meta property="og:description" content="Pregúntale a un documento de ejemplo y comprueba cómo respondería un chatbot conectado a tu base de conocimiento — todo simulado, sin backend, sin subir nada." />
+    <meta property="og:image" content="https://migueldfr.github.io/Portfolio/src/svg/chatbot-preview.svg" />
+    <meta property="og:url" content="https://migueldfr.github.io/Portfolio/chatbot/index.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Demo Chatbot sobre Documentos (simulación offline) | Miguel de Frutos Revilla</title>
+    <link rel="icon" type="image/x-icon" href="../src/png/nav-avatar.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="chat-header">
+        <div class="chat-header-titles">
+            <h1>Demo — Chatbot sobre Documentos</h1>
+            <span class="chat-badge">Simulación offline · nada sale de tu navegador</span>
+        </div>
+        <a class="chat-back-link" href="../index.html#projects">&larr; Volver al portfolio</a>
+    </header>
+
+    <p class="chat-intro">
+        Este bot solo conoce el documento de la izquierda (una política de devoluciones de ejemplo, 100% ficticia). Pregúntale algo sobre ella — usando una de las preguntas sugeridas o escribiendo la tuya — y así verás exactamente cómo funcionaría un chatbot conectado a la documentación real de tu empresa.
+    </p>
+
+    <section class="chat-workspace" aria-label="Documento de referencia y chat">
+        <div class="chat-doc-panel">
+            <h2 class="chat-panel-title">Documento original (PDF)</h2>
+            <div id="chat-doc-body" class="chat-doc-body"></div>
+        </div>
+
+        <div class="chat-panel" aria-label="Conversación con el chatbot">
+            <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
+
+            <div class="chat-suggestions" id="chat-suggestions" aria-label="Preguntas sugeridas"></div>
+
+            <form id="chat-form" class="chat-form">
+                <input id="chat-input" class="chat-input" type="text" placeholder="Escribe tu pregunta sobre el documento..." autocomplete="off" />
+                <button type="submit" class="chat-send-btn">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" integrity="sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/" crossorigin="anonymous"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
