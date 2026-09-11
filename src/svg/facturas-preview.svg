@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360" role="img" aria-label="Ilustración de una factura procesada con una tabla de datos extraídos y un icono de exportación">
+  <rect x="0" y="0" width="480" height="360" rx="24" fill="#ece7e1" />
+  <rect x="60" y="40" width="240" height="280" rx="12" fill="#ffffff" stroke="#dad5cf" stroke-width="2" />
+  <rect x="84" y="64" width="140" height="14" rx="4" fill="#1c1c2b" />
+  <rect x="84" y="88" width="90" height="8" rx="4" fill="#5a5a5a" />
+  <rect x="84" y="102" width="90" height="8" rx="4" fill="#5a5a5a" />
+  <line x1="84" y1="130" x2="276" y2="130" stroke="#dad5cf" stroke-width="2" />
+  <rect x="84" y="146" width="192" height="10" rx="3" fill="#c9c3ba" />
+  <rect x="84" y="164" width="192" height="10" rx="3" fill="#c9c3ba" />
+  <rect x="84" y="182" width="192" height="10" rx="3" fill="#c9c3ba" />
+  <rect x="84" y="200" width="130" height="10" rx="3" fill="#c9c3ba" />
+  <line x1="84" y1="230" x2="276" y2="230" stroke="#dad5cf" stroke-width="2" />
+  <rect x="84" y="246" width="96" height="12" rx="4" fill="#8000ff" opacity=".2" />
+  <rect x="188" y="246" width="88" height="12" rx="4" fill="#8000ff" />
+  <rect x="322" y="80" width="76" height="60" rx="10" fill="#ffffff" stroke="#dad5cf" stroke-width="2" />
+  <rect x="336" y="96" width="48" height="8" rx="3" fill="#5a5a5a" />
+  <rect x="336" y="112" width="30" height="8" rx="3" fill="#5a5a5a" />
+  <circle cx="360" cy="230" r="70" fill="#0d7a6e" />
+  <path d="M328 230 L350 252 L394 200" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

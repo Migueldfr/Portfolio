@@ -1,0 +1,254 @@
+:root {
+    --fac-bg: #ece7e1;
+    --fac-card-bg: #e7e2db;
+    --fac-card-border: #dad5cf;
+    --fac-text: #1c1c2b;
+    --fac-text-muted: #5a5a5a;
+    --fac-purple: #8000ff;
+    --fac-blue: #6bc5f8;
+    --fac-green: #0d7a6e;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px clamp(16px, 4vw, 48px) 48px;
+    background: var(--fac-bg);
+    color: var(--fac-text);
+    font-family: "Fira Code", monospace, sans-serif;
+}
+
+.fac-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.fac-header-titles {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.fac-header-titles h1 {
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.fac-badge {
+    font-size: .7rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(128, 0, 255, .1);
+    color: var(--fac-purple);
+    border: 1px solid rgba(128, 0, 255, .3);
+}
+
+.fac-back-link {
+    color: var(--fac-purple);
+    text-decoration: none;
+    font-size: .85rem;
+}
+
+.fac-back-link:hover {
+    text-decoration: underline;
+}
+
+.fac-intro {
+    max-width: 720px;
+    margin: 0 0 20px;
+    font-size: .85rem;
+    line-height: 1.5;
+    color: var(--fac-text-muted);
+}
+
+.fac-picker {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.fac-picker-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    text-align: left;
+    background: var(--fac-card-bg);
+    border: 1px solid var(--fac-card-border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .2s ease;
+}
+
+.fac-picker-card:hover {
+    border-color: var(--fac-purple);
+    transform: translateY(-2px);
+}
+
+.fac-picker-card.is-selected {
+    border-color: var(--fac-purple);
+    box-shadow: 0 0 0 1px var(--fac-purple);
+}
+
+.fac-picker-icon {
+    font-size: 1.6rem;
+}
+
+.fac-picker-title {
+    font-weight: 700;
+}
+
+.fac-picker-desc {
+    font-size: .8rem;
+    color: var(--fac-text-muted);
+}
+
+.fac-process {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.fac-process-btn {
+    background: linear-gradient(90deg, var(--fac-purple), #2570b0);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: .85rem;
+    cursor: pointer;
+}
+
+.fac-process-btn:disabled {
+    background: var(--fac-card-border);
+    color: var(--fac-text-muted);
+    cursor: not-allowed;
+}
+
+.fac-process-btn:not(:disabled):hover {
+    filter: brightness(1.1);
+}
+
+.fac-status {
+    font-size: .82rem;
+    color: var(--fac-text-muted);
+}
+
+.fac-result {
+    background: var(--fac-card-bg);
+    border: 1px solid var(--fac-card-border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: opacity .2s ease;
+}
+
+.fac-result-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.fac-result-header h2 {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+}
+
+.fac-result-header p {
+    margin: 0;
+    font-size: .8rem;
+    color: var(--fac-text-muted);
+}
+
+.fac-download-btn {
+    background: var(--fac-green);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: .85rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.fac-download-btn:hover {
+    filter: brightness(1.1);
+}
+
+.fac-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 16px;
+}
+
+.fac-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .82rem;
+}
+
+.fac-table th,
+.fac-table td {
+    padding: 8px 12px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.fac-table th:first-child,
+.fac-table td:first-child {
+    text-align: left;
+    white-space: normal;
+}
+
+.fac-table thead th {
+    color: var(--fac-text-muted);
+    border-bottom: 1px solid var(--fac-card-border);
+    font-weight: 500;
+}
+
+.fac-table tbody tr:nth-child(even) {
+    background: rgba(0, 0, 0, .03);
+}
+
+.fac-totals {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    font-size: .85rem;
+}
+
+.fac-totals div {
+    display: flex;
+    gap: 16px;
+    min-width: 220px;
+    justify-content: space-between;
+}
+
+.fac-total-final {
+    border-top: 2px solid var(--fac-card-border);
+    padding-top: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+@media (max-width: 600px) {
+    .fac-picker {
+        grid-template-columns: 1fr;
+    }
+}
