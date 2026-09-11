@@ -17,16 +17,18 @@ const INVOICES = [
   {
     id: "material-sanitario",
     tipo: "Material sanitario",
-    proveedor: "Suministros Higiénicos Delta S.L.",
-    cif: "B87654321",
-    numero: "F-2026-0087",
-    fecha: "2026-01-22",
-    cliente: "Clínica Dental Sonrisas S.L.",
+    proveedor: "Mascarillas SA",
+    cif: "B00998877",
+    numero: "657",
+    fecha: "2020-05-30",
+    cliente: "Pepito López",
     metodoPago: "Transferencia bancaria",
     ivaPct: 21,
+    descuentoPct: 50,
+    imagenOriginal: "factura-mascarillas.png",
     lineas: [
-      { concepto: "Pack 100 mascarillas quirúrgicas", cantidad: 20, precio: 9.5 },
-      { concepto: "Pack 100 guantes de nitrilo", cantidad: 15, precio: 12 }
+      { concepto: "Mascarillas quirúrgicas (pack de 100)", cantidad: 10, precio: 10 },
+      { concepto: "Mascarillas M3 (pack de 100)", cantidad: 10, precio: 15 }
     ]
   }
 ];
@@ -36,10 +38,13 @@ function computeTotals(invoice) {
     return sum + linea.cantidad * linea.precio;
   }, 0);
   const iva = subtotal * (invoice.ivaPct / 100);
-  const total = subtotal + iva;
+  const descuentoPct = invoice.descuentoPct || 0;
+  const descuento = (subtotal + iva) * (descuentoPct / 100);
+  const total = subtotal + iva - descuento;
   return {
     subtotal: Number(subtotal.toFixed(2)),
     iva: Number(iva.toFixed(2)),
+    descuento: Number(descuento.toFixed(2)),
     total: Number(total.toFixed(2))
   };
 }

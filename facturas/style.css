@@ -114,6 +114,157 @@ body {
     color: var(--fac-text-muted);
 }
 
+.fac-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.fac-panel-title {
+    font-size: .95rem;
+    margin: 0 0 12px;
+    color: var(--fac-text-muted);
+    font-weight: 500;
+}
+
+.fac-doc-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    border: 1px dashed var(--fac-card-border);
+    border-radius: 12px;
+    color: var(--fac-text-muted);
+    font-size: .82rem;
+    text-align: center;
+    padding: 20px;
+}
+
+.fac-doc-image {
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--fac-card-border);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+}
+
+.fac-doc-page {
+    background: #ffffff;
+    border: 1px solid var(--fac-card-border);
+    border-radius: 4px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+    padding: 24px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1a1a1a;
+}
+
+.fac-doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.fac-doc-brand {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.fac-doc-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: .05em;
+}
+
+.fac-doc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: .78rem;
+    margin-bottom: 14px;
+}
+
+.fac-doc-meta div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fac-doc-meta span {
+    color: #6b6b6b;
+    font-size: .7rem;
+    text-transform: uppercase;
+}
+
+.fac-doc-client {
+    font-size: .82rem;
+    margin-bottom: 16px;
+}
+
+.fac-doc-client span {
+    display: block;
+    color: #6b6b6b;
+    font-size: .7rem;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+.fac-doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .78rem;
+    margin-bottom: 14px;
+}
+
+.fac-doc-table th,
+.fac-doc-table td {
+    padding: 6px 8px;
+    text-align: right;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.fac-doc-table th:first-child,
+.fac-doc-table td:first-child {
+    text-align: left;
+}
+
+.fac-doc-table thead th {
+    border-bottom: 2px solid #1a1a1a;
+    font-weight: 700;
+}
+
+.fac-doc-totals {
+    margin-left: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: .8rem;
+}
+
+.fac-doc-totals div {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+}
+
+.fac-doc-totals .fac-doc-total-final {
+    border-top: 2px solid #1a1a1a;
+    padding-top: 4px;
+    font-weight: 700;
+}
+
+.fac-doc-footer {
+    margin-top: 16px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e2e2;
+    font-size: .74rem;
+    color: #6b6b6b;
+}
+
 .fac-process {
     display: flex;
     align-items: center;
@@ -245,6 +396,12 @@ body {
     padding-top: 6px;
     font-size: 1rem;
     font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .fac-workspace {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 600px) {

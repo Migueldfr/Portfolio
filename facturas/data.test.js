@@ -15,12 +15,19 @@ test("computeTotals sums line items with no IVA for the university invoice", () 
   assert.equal(totals.total, 3680);
 });
 
-test("computeTotals applies the invoice's IVA percentage to the line-item subtotal", () => {
+test("computeTotals applies IVA and a percentage discount on top for the material-sanitario invoice", () => {
   const invoice = getInvoiceById("material-sanitario");
   const totals = computeTotals(invoice);
-  assert.equal(totals.subtotal, 370);
-  assert.equal(totals.iva, 77.7);
-  assert.equal(totals.total, 447.7);
+  assert.equal(totals.subtotal, 250);
+  assert.equal(totals.iva, 52.5);
+  assert.equal(totals.descuento, 151.25);
+  assert.equal(totals.total, 151.25);
+});
+
+test("computeTotals returns zero discount when an invoice has no descuentoPct", () => {
+  const invoice = getInvoiceById("universidad");
+  const totals = computeTotals(invoice);
+  assert.equal(totals.descuento, 0);
 });
 
 test("getInvoiceById returns null for an unknown id", () => {

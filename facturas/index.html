@@ -42,38 +42,50 @@
         </button>
     </section>
 
-    <section class="fac-process" aria-label="Procesar factura">
-        <button id="btn-process" class="fac-process-btn" type="button" disabled>Procesar factura</button>
-        <span id="fac-status" class="fac-status" aria-live="polite"></span>
-    </section>
-
-    <section id="fac-result" class="fac-result" hidden aria-label="Resultado de la extracción">
-        <div class="fac-result-header">
-            <div>
-                <h2 id="result-proveedor">-</h2>
-                <p id="result-meta">-</p>
+    <section class="fac-workspace" aria-label="Documento original y resultado de la extracción">
+        <div class="fac-doc-panel">
+            <h2 class="fac-panel-title">Documento original (simulado)</h2>
+            <div id="fac-doc-preview" class="fac-doc-placeholder">
+                Elige una factura de ejemplo arriba para previsualizarla aquí.
             </div>
-            <button id="btn-download" class="fac-download-btn" type="button">⬇ Descargar Excel</button>
         </div>
 
-        <div class="fac-table-wrapper">
-            <table class="fac-table">
-                <thead>
-                    <tr>
-                        <th>Concepto</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Importe</th>
-                    </tr>
-                </thead>
-                <tbody id="result-lineas"></tbody>
-            </table>
-        </div>
+        <div class="fac-result-side">
+            <div class="fac-process">
+                <button id="btn-process" class="fac-process-btn" type="button" disabled>Procesar factura</button>
+                <span id="fac-status" class="fac-status" aria-live="polite"></span>
+            </div>
 
-        <div class="fac-totals">
-            <div><span>Base imponible</span><strong id="result-subtotal">-</strong></div>
-            <div><span id="result-iva-label">IVA</span><strong id="result-iva">-</strong></div>
-            <div class="fac-total-final"><span>Total</span><strong id="result-total">-</strong></div>
+            <section id="fac-result" class="fac-result" hidden aria-label="Resultado de la extracción">
+                <div class="fac-result-header">
+                    <div>
+                        <h2 id="result-proveedor">-</h2>
+                        <p id="result-meta">-</p>
+                    </div>
+                    <button id="btn-download" class="fac-download-btn" type="button">⬇ Descargar Excel</button>
+                </div>
+
+                <div class="fac-table-wrapper">
+                    <table class="fac-table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody id="result-lineas"></tbody>
+                    </table>
+                </div>
+
+                <div class="fac-totals">
+                    <div><span>Base imponible</span><strong id="result-subtotal">-</strong></div>
+                    <div><span id="result-iva-label">IVA</span><strong id="result-iva">-</strong></div>
+                    <div id="result-descuento-row" hidden><span id="result-descuento-label">Descuento</span><strong id="result-descuento">-</strong></div>
+                    <div class="fac-total-final"><span>Total</span><strong id="result-total">-</strong></div>
+                </div>
+            </section>
         </div>
     </section>
 
