@@ -2302,6 +2302,10 @@ footer {
   justify-content: center;
 }
 
+.project-featured .ProjectHeading {
+  color: #fff;
+}
+
 .project-featured .btn-more-info {
   background: transparent;
   border: 1px solid #03e6ff;
