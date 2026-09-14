@@ -2279,7 +2279,6 @@ footer {
 
 .project-featured .image-div {
   flex: 1.2;
-  max-height: 400px;
   overflow: hidden;
   padding: 0; /* Ajuste para la imagen destacada */
 }
