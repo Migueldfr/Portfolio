@@ -409,7 +409,8 @@ noscript {
 
 .navbar-tabs-ul a {
     color: var(--color-white);
-    font-weight: 100
+    font-weight: 100;
+    white-space: nowrap
 }
 
 .navbar-tabs-ul li.demo-link a,
@@ -1554,11 +1555,13 @@ footer {
 
 .footer-background {
     width: 100%;
-    height: 100vh;
+    height: fit-content;
+    min-height: 340px;
     background-color: #0b0b0b;
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    padding-top: 80px;
     z-index: 1
 }
 
@@ -1575,10 +1578,12 @@ footer {
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: fit-content;
+    min-height: 340px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    padding-top: 80px;
     backdrop-filter: blur(10px)
 }
 
@@ -1788,6 +1793,10 @@ footer {
 @media screen and (max-width:1200px) {
     html {
         font-size: 60%
+    }
+
+    .navbar-tabs-ul {
+        gap: 40px
     }
 
     .projects-section-div,
