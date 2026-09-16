@@ -205,13 +205,29 @@ window.addEventListener("scroll", () => {
 // =======================================================
 // 🔹 Desplegable "Demo" (elegir entre las demos interactivas)
 // =======================================================
+// El navbar usa backdrop-filter y el menú móvil usa transform al abrirse;
+// ambas propiedades convierten a ese ancestro en el "containing block" de
+// cualquier descendiente position:fixed, así que el menú se posicionaba
+// relativo a ese ancestro en vez del viewport aunque las coordenadas se
+// calculasen bien. Por eso sacamos el menú al final del <body> mientras
+// está abierto y lo devolvemos a su sitio al cerrarlo.
+const demoDropdowns = Array.from(document.querySelectorAll(".demo-link")).map(function (li) {
+  return {
+    trigger: li.querySelector(".demo-dropdown-trigger"),
+    menu: li.querySelector(".demo-dropdown-menu"),
+    placeholder: document.createComment("demo-dropdown-menu-slot"),
+  };
+});
+
 function closeDemoDropdowns() {
-  document.querySelectorAll(".demo-dropdown-menu.demo-dropdown-open").forEach(function (openMenu) {
-    openMenu.classList.remove("demo-dropdown-open");
-    openMenu.style.display = "";
-    const li = openMenu.closest(".demo-link");
-    const trigger = li && li.querySelector(".demo-dropdown-trigger");
-    if (trigger) trigger.setAttribute("aria-expanded", "false");
+  demoDropdowns.forEach(function (entry) {
+    if (!entry.menu || !entry.menu.classList.contains("demo-dropdown-open")) return;
+    entry.menu.classList.remove("demo-dropdown-open");
+    entry.menu.style.display = "";
+    entry.trigger.setAttribute("aria-expanded", "false");
+    if (entry.placeholder.parentNode) {
+      entry.placeholder.parentNode.replaceChild(entry.menu, entry.placeholder);
+    }
   });
 }
 
@@ -224,17 +240,18 @@ function positionDemoDropdown(trigger, menu) {
   menu.style.left = left + "px";
 }
 
-document.querySelectorAll(".demo-link .demo-dropdown-trigger").forEach(function (trigger) {
-  trigger.addEventListener("click", function (event) {
+demoDropdowns.forEach(function (entry) {
+  if (!entry.trigger || !entry.menu) return;
+  entry.trigger.addEventListener("click", function (event) {
     event.stopPropagation();
-    const li = trigger.closest(".demo-link");
-    const menu = li.querySelector(".demo-dropdown-menu");
-    const wasOpen = menu.classList.contains("demo-dropdown-open");
+    const wasOpen = entry.menu.classList.contains("demo-dropdown-open");
     closeDemoDropdowns();
     if (!wasOpen) {
-      positionDemoDropdown(trigger, menu);
-      menu.classList.add("demo-dropdown-open");
-      trigger.setAttribute("aria-expanded", "true");
+      entry.menu.replaceWith(entry.placeholder);
+      document.body.appendChild(entry.menu);
+      positionDemoDropdown(entry.trigger, entry.menu);
+      entry.menu.classList.add("demo-dropdown-open");
+      entry.trigger.setAttribute("aria-expanded", "true");
     }
   });
 });
