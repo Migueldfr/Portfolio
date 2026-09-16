@@ -435,6 +435,7 @@ noscript {
 }
 
 .demo-dropdown-menu {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -445,21 +446,14 @@ noscript {
     padding: 8px;
     margin: 0;
     list-style: none;
-    display: flex;
     flex-direction: column;
     gap: 2px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
     z-index: 20000;
     box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
 }
 
-.demo-link.demo-dropdown-open .demo-dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.demo-dropdown-menu.demo-dropdown-open {
+    display: flex;
 }
 
 .demo-dropdown-menu li {

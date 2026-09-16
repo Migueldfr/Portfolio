@@ -206,14 +206,17 @@ window.addEventListener("scroll", () => {
 // 🔹 Desplegable "Demo" (elegir entre las demos interactivas)
 // =======================================================
 function closeDemoDropdowns() {
-  document.querySelectorAll(".demo-link.demo-dropdown-open").forEach(function (openLi) {
-    openLi.classList.remove("demo-dropdown-open");
-    const trigger = openLi.querySelector(".demo-dropdown-trigger");
+  document.querySelectorAll(".demo-dropdown-menu.demo-dropdown-open").forEach(function (openMenu) {
+    openMenu.classList.remove("demo-dropdown-open");
+    openMenu.style.display = "";
+    const li = openMenu.closest(".demo-link");
+    const trigger = li && li.querySelector(".demo-dropdown-trigger");
     if (trigger) trigger.setAttribute("aria-expanded", "false");
   });
 }
 
 function positionDemoDropdown(trigger, menu) {
+  menu.style.display = "flex";
   const rect = trigger.getBoundingClientRect();
   const top = rect.bottom + 10;
   const left = Math.max(8, Math.min(rect.right - menu.offsetWidth, window.innerWidth - menu.offsetWidth - 8));
@@ -226,11 +229,11 @@ document.querySelectorAll(".demo-link .demo-dropdown-trigger").forEach(function 
     event.stopPropagation();
     const li = trigger.closest(".demo-link");
     const menu = li.querySelector(".demo-dropdown-menu");
-    const wasOpen = li.classList.contains("demo-dropdown-open");
+    const wasOpen = menu.classList.contains("demo-dropdown-open");
     closeDemoDropdowns();
     if (!wasOpen) {
       positionDemoDropdown(trigger, menu);
-      li.classList.add("demo-dropdown-open");
+      menu.classList.add("demo-dropdown-open");
       trigger.setAttribute("aria-expanded", "true");
     }
   });
