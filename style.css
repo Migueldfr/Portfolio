@@ -435,9 +435,9 @@ noscript {
 }
 
 .demo-dropdown-menu {
-    position: absolute;
-    top: calc(100% + 14px);
-    right: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
     min-width: 220px;
     background: #15151f;
     border: 1px solid rgba(128, 0, 255, .4);
@@ -452,7 +452,7 @@ noscript {
     visibility: hidden;
     transform: translateY(-8px);
     transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
-    z-index: 500;
+    z-index: 20000;
     box-shadow: 0 12px 30px rgba(0, 0, 0, .35);
 }
 
@@ -2037,16 +2037,6 @@ footer {
         font-family: fira code;
         height: 30px;
         width: fit-content
-    }
-
-    .mobile-navbar-tabs-li .demo-dropdown-menu {
-        left: 50%;
-        right: auto;
-        transform: translate(-50%, -8px);
-    }
-
-    .mobile-navbar-tabs-li.demo-dropdown-open .demo-dropdown-menu {
-        transform: translate(-50%, 0);
     }
 
     .about-info,

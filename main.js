@@ -213,13 +213,23 @@ function closeDemoDropdowns() {
   });
 }
 
+function positionDemoDropdown(trigger, menu) {
+  const rect = trigger.getBoundingClientRect();
+  const top = rect.bottom + 10;
+  const left = Math.max(8, Math.min(rect.right - menu.offsetWidth, window.innerWidth - menu.offsetWidth - 8));
+  menu.style.top = top + "px";
+  menu.style.left = left + "px";
+}
+
 document.querySelectorAll(".demo-link .demo-dropdown-trigger").forEach(function (trigger) {
   trigger.addEventListener("click", function (event) {
     event.stopPropagation();
     const li = trigger.closest(".demo-link");
+    const menu = li.querySelector(".demo-dropdown-menu");
     const wasOpen = li.classList.contains("demo-dropdown-open");
     closeDemoDropdowns();
     if (!wasOpen) {
+      positionDemoDropdown(trigger, menu);
       li.classList.add("demo-dropdown-open");
       trigger.setAttribute("aria-expanded", "true");
     }
