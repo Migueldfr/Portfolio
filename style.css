@@ -413,13 +413,66 @@ noscript {
     white-space: nowrap
 }
 
-.navbar-tabs-ul li.demo-link a,
-.mobile-navbar-tabs-ul li.demo-link a {
+.navbar-tabs-ul li.demo-link > .demo-dropdown-trigger,
+.mobile-navbar-tabs-ul li.demo-link > .demo-dropdown-trigger {
     background-image: linear-gradient(90deg, var(--color-purple), var(--color-light-blue));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     font-weight: 700
+}
+
+.demo-link {
+    position: relative;
+}
+
+.demo-dropdown-trigger {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+.demo-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    min-width: 220px;
+    background: var(--color-dark-mode, #11111b);
+    border: 1px solid var(--tech-stack-box-border-color, #292929);
+    border-radius: 12px;
+    padding: 8px;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+    z-index: 500;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+}
+
+.demo-link.demo-dropdown-open .demo-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.demo-dropdown-menu a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.demo-dropdown-menu a:hover {
+    background: rgba(128, 0, 255, .15);
 }
 
 .logo {
@@ -1975,6 +2028,16 @@ footer {
         font-family: fira code;
         height: 30px;
         width: fit-content
+    }
+
+    .mobile-navbar-tabs-li .demo-dropdown-menu {
+        left: 50%;
+        right: auto;
+        transform: translate(-50%, -8px);
+    }
+
+    .mobile-navbar-tabs-li.demo-dropdown-open .demo-dropdown-menu {
+        transform: translate(-50%, 0);
     }
 
     .about-info,

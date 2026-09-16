@@ -194,3 +194,33 @@ window.addEventListener("scroll", () => {
     closeMultiopticasModal();
   }
 });
+
+// =======================================================
+// 🔹 Desplegable "Demo" (elegir entre las demos interactivas)
+// =======================================================
+function closeDemoDropdowns() {
+  document.querySelectorAll(".demo-link.demo-dropdown-open").forEach(function (openLi) {
+    openLi.classList.remove("demo-dropdown-open");
+    const trigger = openLi.querySelector(".demo-dropdown-trigger");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+  });
+}
+
+document.querySelectorAll(".demo-link .demo-dropdown-trigger").forEach(function (trigger) {
+  trigger.addEventListener("click", function (event) {
+    event.stopPropagation();
+    const li = trigger.closest(".demo-link");
+    const wasOpen = li.classList.contains("demo-dropdown-open");
+    closeDemoDropdowns();
+    if (!wasOpen) {
+      li.classList.add("demo-dropdown-open");
+      trigger.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+
+document.addEventListener("click", closeDemoDropdowns);
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") closeDemoDropdowns();
+});

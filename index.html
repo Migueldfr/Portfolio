@@ -52,7 +52,12 @@
                         <a href="#projects" aria-label="Botón de menú Proyectos">&#60;/Proyectos&#62;</a>
                     </li>
                     <li class="demo-link" data-aos="fade-down" data-aos-delay="800">
-                        <a href="demo/index.html" target="_blank" aria-label="Abrir dashboard demo interactivo">&#60;/Demo&#62;</a>
+                        <button type="button" class="demo-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Elegir demo interactiva">&#60;/Demo&#62;</button>
+                        <ul class="demo-dropdown-menu" aria-label="Elegir demo interactiva">
+                            <li><a href="demo/index.html" target="_blank">Dashboard BI</a></li>
+                            <li><a href="facturas/index.html" target="_blank">Extracción de Facturas</a></li>
+                            <li><a href="chatbot/index.html" target="_blank">Chatbot sobre Documentos</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -76,7 +81,14 @@
                 <li class="mobile-navbar-tabs-li skills" onclick="hidemenubyli()"><a href="#skills">&#60;/Habilidades&#62;</a></li>
                 <li class="mobile-navbar-tabs-li stack" onclick="hidemenubyli()"><a href="#stack">&#60;/Áreas&#62;</a></li>
                 <li class="mobile-navbar-tabs-li projects" onclick="hidemenubyli()"><a href="#projects">&#60;/Proyectos&#62;</a></li>
-                <li class="mobile-navbar-tabs-li demo-link" onclick="hidemenubyli()"><a href="demo/index.html" target="_blank">&#60;/Demo&#62;</a></li>
+                <li class="mobile-navbar-tabs-li demo-link">
+                    <button type="button" class="demo-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Elegir demo interactiva">&#60;/Demo&#62;</button>
+                    <ul class="demo-dropdown-menu" aria-label="Elegir demo interactiva">
+                        <li><a href="demo/index.html" target="_blank" onclick="hidemenubyli()">Dashboard BI</a></li>
+                        <li><a href="facturas/index.html" target="_blank" onclick="hidemenubyli()">Extracción de Facturas</a></li>
+                        <li><a href="chatbot/index.html" target="_blank" onclick="hidemenubyli()">Chatbot sobre Documentos</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
 
