@@ -2,10 +2,17 @@
 var audio = document.getElementById("audioPlayer"),
     loader = document.getElementById("preloader");
 
-window.addEventListener("load", function () {
+function hidePreloader() {
+  if (loader.style.display === "none") return;
   loader.style.display = "none";
   document.querySelector(".hey").classList.add("popup");
-});
+}
+
+window.addEventListener("load", hidePreloader);
+// Red de seguridad: si algún recurso externo (icono, fuente, etc.) se queda
+// colgado, "load" nunca dispara y la web se queda tapada por el preloader
+// para siempre. Forzamos que se oculte igualmente pasados 4s.
+setTimeout(hidePreloader, 4000);
 
 // ⚙️ CONFIGURACIONES GENERALES
 function settingtoggle() {
