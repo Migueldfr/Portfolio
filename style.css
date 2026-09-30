@@ -1902,7 +1902,12 @@ footer {
         font-size: 55%
     }
 
+    /* Los blobs con filter: blur() enorme bloquean por completo el pintado
+       en iPhone (la página se congela a mitad de la animación de entrada). */
     .blob,
+    .blob-2,
+    .blob-3,
+    .footer-blob,
     .cursor-inner,
     .cursor-outer,
     .navbar-tabs-ul {
