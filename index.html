@@ -640,7 +640,11 @@
             duration: .8,
             ease: "back.out(1.7)",
             stagger: .04,
-            delay: .3
+            delay: .3,
+            // WebKit (Safari y Chrome en iOS) deja invisible el texto con
+            // background-clip:text si las letras conservan un transform,
+            // así que lo quitamos al terminar la animación.
+            clearProps: "transform"
         });
     </script>
     <script>
