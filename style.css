@@ -122,7 +122,9 @@ strong {
     gap: 1rem;
     height: var(--header-h);
     padding: 0 20px;
+    background: var(--bg);
     background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s;
@@ -261,6 +263,7 @@ strong {
     margin-left: -6px;
     border-radius: 50%;
     background: var(--signal);
+    box-shadow: 0 0 0 5px rgba(43, 63, 255, 0.22);
     box-shadow: 0 0 0 5px color-mix(in srgb, var(--signal) 22%, transparent);
 }
 
@@ -331,6 +334,7 @@ strong {
 /* Inicio */
 
 .hero {
+    min-height: 100vh;
     min-height: 100svh;
     display: flex;
     align-items: flex-end;
@@ -729,6 +733,7 @@ strong {
 
 .dialog {
     width: min(920px, calc(100% - 32px));
+    max-height: calc(100vh - 48px);
     max-height: calc(100svh - 48px);
     padding: clamp(1.5rem, 4vw, 3rem);
     color: var(--ink);
