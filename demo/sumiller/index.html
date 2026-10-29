@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Demo conceptual de un sumiller virtual para una bodega de la Ribera del Duero.">
+<meta property="og:title" content="Sumiller virtual Figuero">
+<meta property="og:description" content="Demo conceptual creada por PickleInc. Respuestas simuladas.">
+<title>Sumiller virtual Figuero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#17110f; --panel:#211816; --panel2:#2b201d; --line:#3a2c28;
+  --text:#f3ece6; --muted:#b9a99f; --accent:#c9a46a; --wine:#8e2c3c; --wine2:#a8394b;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Manrope',system-ui,sans-serif;display:flex;justify-content:center;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.app{width:100%;max-width:760px;height:100%;display:flex;flex-direction:column;min-width:0}
+header{padding:20px 0 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.seal{width:42px;height:42px;border-radius:50%;background:var(--wine);display:grid;place-items:center;flex:none}
+.brand h1{margin:0;font-family:'Fraunces',serif;font-weight:700;font-size:22px;letter-spacing:-.2px}
+.brand p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.lang button{background:none;border:0;color:var(--muted);font:600 13px 'Manrope';padding:9px 14px;cursor:pointer;min-height:40px}
+.lang button.on{background:var(--panel2);color:var(--text)}
+.badge{margin:12px 0 0;font-size:12px;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:8px 12px}
+#chat{flex:1;overflow-y:auto;padding:18px 0;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth}
+.msg{max-width:88%;padding:13px 16px;border-radius:18px;line-height:1.5;font-size:15px;white-space:pre-line;animation:in .25s ease}
+.bot{background:var(--panel);border:1px solid var(--line);border-top-left-radius:6px;align-self:flex-start}
+.user{background:var(--wine);align-self:flex-end;border-top-right-radius:6px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px;white-space:normal}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card .k{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+.card h3{margin:4px 0 6px;font-family:'Fraunces',serif;font-size:19px;font-weight:500}
+.card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.45}
+.card .why{margin-top:8px;color:var(--text);font-size:13.5px}
+.typing{display:flex;gap:5px;padding:16px}
+.typing span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:b 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,60%,100%{opacity:.3}30%{opacity:1}}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
+.chips button{flex:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:10px 14px;font:500 13.5px 'Manrope';cursor:pointer;min-height:42px}
+.chips button:hover{border-color:var(--accent);color:var(--accent)}
+form{display:flex;gap:8px;padding:0 0 18px}
+form label{position:absolute;left:-9999px}
+input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:var(--text);font:16px 'Manrope';padding:14px 16px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.send{background:var(--accent);color:#1b1310;border:0;border-radius:14px;padding:0 18px;font:700 15px 'Manrope';cursor:pointer;min-height:48px}
+footer{font-size:11.5px;color:var(--muted);text-align:center;padding:0 0 12px}
+footer a{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <div class="seal" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f3ece6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8l-1 7a3 3 0 0 1-6 0L8 2z"/><path d="M12 12v8"/><path d="M8 22h8"/></svg>
+      </div>
+      <div>
+        <h1 id="t-title">Sumiller virtual Figuero</h1>
+        <p id="t-sub">Tempranillo de La Horra · Ribera del Duero</p>
+      </div>
+    </div>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button type="button" id="l-es" class="on">ES</button>
+      <button type="button" id="l-en">EN</button>
+    </div>
+  </header>
+  <p class="badge" id="t-badge">Demo conceptual creada por PickleInc para presentar la idea. No es un servicio oficial de la bodega; las respuestas están simuladas.</p>
+
+  <div id="chat" aria-live="polite"></div>
+
+  <div class="chips" id="chips"></div>
+  <form id="f">
+    <label for="q">Escribe tu pregunta</label>
+    <input id="q" autocomplete="off" placeholder="Ej.: Vino para un lechazo asado con 8 amigos">
+    <button class="send" type="submit" id="t-send">Enviar</button>
+  </form>
+  <footer>Prototipo · <a href="https://pickleinc.es" target="_blank" rel="noopener">pickleinc.es</a></footer>
+</div>
+
+<script>
+const WINES = {
+  f4:{name:"Figuero 4",
+    es:{k:"Roble · 4 meses en barrica",d:"El más fresco y frutal de la casa. Tempranillo con un paso corto por madera.",pair:"Tapas, embutidos, arroces, pasta o una cena informal."},
+    en:{k:"Roble · 4 months in oak",d:"The freshest, fruit-driven wine of the house. Tempranillo with a short oak ageing.",pair:"Tapas, cured meats, rice dishes, pasta or a casual dinner."}},
+  f12:{name:"Figuero 12",
+    es:{k:"Crianza · 12 meses en barrica",d:"Equilibrio entre fruta y madera. El vino versátil para casi cualquier mesa.",pair:"Quesos curados, carnes a la brasa, setas y guisos suaves."},
+    en:{k:"Crianza · 12 months in oak",d:"Balance between fruit and oak. The versatile choice for almost any table.",pair:"Aged cheese, grilled meat, mushrooms and light stews."}},
+  f15:{name:"Figuero 15",
+    es:{k:"Reserva · 15 meses en barrica",d:"Más estructura y profundidad. Pide platos con carácter.",pair:"Lechazo asado, chuletón, caza y guisos tradicionales."},
+    en:{k:"Reserva · 15 months in oak",d:"More structure and depth. Made for dishes with character.",pair:"Roast lamb, rib steak, game and traditional stews."}},
+  vv:{name:"Figuero Viñas Viejas",
+    es:{k:"Viñas de unos 60 años · ~800 m",d:"Viñedo viejo en secano. Concentración y expresión del paisaje de La Horra.",pair:"Lechazo, carnes rojas y quesos de oveja."},
+    en:{k:"~60-year-old vines · ~800 m",d:"Old dry-farmed vineyards. Concentration and a true sense of place.",pair:"Roast lamb, red meat and sheep's cheese."}},
+  mil:{name:"Milagros de Figuero",
+    es:{k:"Homenaje a Milagros Figuero",d:"Un vino con historia familiar detrás. Ideal para regalar con significado.",pair:"Celebraciones, regalos y cenas especiales."},
+    en:{k:"A tribute to Milagros Figuero",d:"A wine with family history behind it. Perfect as a meaningful gift.",pair:"Celebrations, gifts and special dinners."}},
+  noble:{name:"Figuero Noble",
+    es:{k:"Parcela única · Torrosillo, 856 m",d:"Viñas plantadas hacia 1950. Un vino de pago para quien sabe de vino.",pair:"Regalo para un entendido o una ocasión que se recuerde."},
+    en:{k:"Single plot · Torrosillo, 856 m",d:"Vines planted around 1950. A single-vineyard wine for connoisseurs.",pair:"A gift for a wine lover or a truly memorable occasion."}},
+  tinus:{name:"Figuero Tinus",
+    es:{k:"Selección de parcelas excepcionales",d:"La cima de la bodega, solo en las mejores añadas.",pair:"Coleccionistas y grandes celebraciones."},
+    en:{k:"From exceptional plots",d:"The winery's top expression, only in the best vintages.",pair:"Collectors and big celebrations."}}
+};
+
+const T = {
+  es:{title:"Sumiller virtual Figuero",sub:"Tempranillo de La Horra · Ribera del Duero",badge:"Demo conceptual creada por PickleInc para presentar la idea. No es un servicio oficial de la bodega; las respuestas están simuladas.",ph:"Ej.: Vino para un lechazo asado con 8 amigos",send:"Enviar",label:"Escribe tu pregunta",
+    hello:"¡Hola! Soy el sumiller virtual de Figuero 🍷\nCuéntame qué vas a comer, la ocasión o a quién quieres regalar, y te recomiendo el vino ideal. También te informo de las visitas a la bodega.",
+    chips:["Lechazo asado","Cena con amigos","Un regalo especial","Quesos y embutidos","Evento para 30 personas","Visitar la bodega"],
+    why:"Por qué: ",
+    meat:"Para carne asada, y más si es lechazo, el clásico de la Ribera, te recomiendo estos dos:",
+    casual:"Para algo informal y fácil de beber, este es tu vino:",
+    cheese:"Con quesos y embutidos funcionan muy bien:",
+    gift:"Para regalar, depende de cuánto sepa de vino quien lo recibe:",
+    fish:"Todos nuestros vinos son tintos de Tempranillo. Con pescado o arroces te propongo el más fresco, servido un poco más frío (14-15 °C):",
+    visit:"Abrimos la bodega en La Horra (Burgos) los sábados a las 12:00 para visitas reducidas y personalizadas: historia de la familia, el viñedo del pueblo con cepas de más de 80 años y una cata.\nReserva en figuero.es/enoturismo.",
+    count:(n,b)=>`Para ${n} personas te recomiendo unas ${b} botellas (calculando media botella por persona en una comida). Si es un evento largo, súmale un 20 %.\nPara un grupo así suele triunfar:`,
+    countAsk:"¿Para cuántas personas es? Dime el número y te calculo las botellas.",
+    fallback:"No estoy seguro de haberte entendido. Cuéntame qué vas a comer, la ocasión (cena, regalo, evento…) o pregúntame por las visitas.\nMientras tanto, el vino más versátil de la casa es:",
+    thanks:"¡A ti! Si quieres, dime el plato o la ocasión y seguimos."},
+  en:{title:"Figuero virtual sommelier",sub:"Tempranillo from La Horra · Ribera del Duero",badge:"Concept demo built by PickleInc to present the idea. Not an official winery service; answers are simulated.",ph:"E.g.: Wine for roast lamb with 8 friends",send:"Send",label:"Type your question",
+    hello:"Hi! I'm Figuero's virtual sommelier 🍷\nTell me what you're eating, the occasion or who the gift is for, and I'll suggest the right wine. I can also help you plan a winery visit.",
+    chips:["Roast lamb","Dinner with friends","A special gift","Cheese & charcuterie","Event for 30 people","Visit the winery"],
+    why:"Why: ",
+    meat:"For roast meat, especially lamb, the Ribera classic, I'd go for these two:",
+    casual:"For something casual and easy-drinking, this is your wine:",
+    cheese:"With cheese and charcuterie, these work beautifully:",
+    gift:"For a gift, it depends on how much they know about wine:",
+    fish:"All our wines are Tempranillo reds. With fish or rice dishes, try the freshest one, served slightly cooler (14-15 °C):",
+    visit:"The winery in La Horra (Burgos) opens on Saturdays at 12:00 for small, personalised visits: the family story, the village vineyard with vines over 80 years old, and a tasting.\nBook at figuero.es/enoturismo.",
+    count:(n,b)=>`For ${n} people I'd plan around ${b} bottles (about half a bottle per person at a meal). For a long event, add 20%.\nFor a group like this, a safe bet is:`,
+    countAsk:"How many guests? Give me the number and I'll work out the bottles.",
+    fallback:"I'm not sure I understood. Tell me what you're eating, the occasion (dinner, gift, event…) or ask me about visits.\nMeanwhile, the most versatile wine of the house is:",
+    thanks:"My pleasure! Tell me the dish or occasion and we'll keep going."}
+};
+
+let lang="es";
+const chat=document.getElementById("chat"), q=document.getElementById("q"), chips=document.getElementById("chips");
+
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+function scroll(){chat.scrollTop=chat.scrollHeight;}
+
+function addUser(t){chat.appendChild(el("div","msg user",t));scroll();}
+function addBot(text,wines){
+  const typing=el("div","msg bot typing");typing.innerHTML="<span></span><span></span><span></span>";
+  chat.appendChild(typing);scroll();
+  setTimeout(()=>{
+    typing.remove();
+    const m=el("div","msg bot",text);
+    if(wines&&wines.length){
+      const c=el("div","cards");
+      wines.forEach(([id,why])=>{
+        const w=WINES[id],L=w[lang],card=el("div","card");
+        card.appendChild(el("div","k",L.k));
+        card.appendChild(el("h3",null,w.name));
+        card.appendChild(el("p",null,L.d));
+        card.appendChild(el("p","why",T[lang].why+(why||L.pair)));
+        c.appendChild(card);
+      });
+      m.appendChild(c);
+    }
+    chat.appendChild(m);scroll();
+  },650);
+}
+
+const has=(s,words)=>words.some(w=>s.includes(w));
+const EN_WORDS=["hello","hi","wine","dinner","gift","lamb","cheese","friends","visit","people","guests","which","what","recommend","steak","fish","i","want","for","my","the","a","with","winery","roast","event"];
+const ES_WORDS=["hola","vino","cena","regalo","quiero","para","bodega","visitar","personas","amigos","queso","quesos","lechazo","asado","un","una","el","la","con","mi","evento","que","y","de"];
+
+function answer(raw){
+  const s=" "+raw.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")+" ";
+  const words=s.trim().split(/[^a-z0-9]+/);
+  const en=words.filter(w=>EN_WORDS.includes(w)).length, es=words.filter(w=>ES_WORDS.includes(w)).length;
+  if(lang==="es"&&en>es) setLang("en",false);
+  else if(lang==="en"&&es>en) setLang("es",false);
+  const t=T[lang];
+  const num=(s.match(/\b(\d{1,4})\b/)||[])[1];
+  if(has(s,["gracias","thank"])) return addBot(t.thanks);
+  if(has(s,["visita","enoturismo","bodega abre","reserv","visit","tour","book"])) return addBot(t.visit);
+  if(has(s,["evento","boda","personas","invitados","botellas","cuantas","event","wedding","people","guests","bottles","how many"])){
+    if(!num) return addBot(t.countAsk);
+    const n=+num,b=Math.ceil(n/2);
+    return addBot(t.count(n,b),[["f12"],["f4"]]);
+  }
+  if(has(s,["regal","gift","aniversario","anniversary","cumple","birthday","especial","special"]))
+    return addBot(t.gift,[["mil",lang==="es"?"Tiene una historia familiar detrás: perfecto si quieres que el regalo diga algo.":"It carries a family story: ideal when you want the gift to mean something."],["noble",lang==="es"?"Para alguien que sabe de vino y valora un vino de parcela.":"For a wine lover who values a single-vineyard wine."],["tinus",lang==="es"?"Si quieres lo mejor de la bodega.":"If you want the very best of the winery."]]);
+  if(has(s,["lechazo","cordero","asado","chuleton","carne","solomillo","caza","guiso","lamb","roast","steak","meat","beef","game","stew"]))
+    return addBot(t.meat,[["f15"],["vv"]]);
+  if(has(s,["queso","embutido","jamon","chorizo","cecina","cheese","charcuterie","ham"]))
+    return addBot(t.cheese,[["f12"],["vv",lang==="es"?"Con quesos de oveja curados es una delicia.":"Wonderful with aged sheep's cheese."]]);
+  if(has(s,["pescado","marisco","arroz","paella","fish","seafood","rice"]))
+    return addBot(t.fish,[["f4"]]);
+  if(has(s,["amigos","informal","tapas","pizza","pasta","diario","barbacoa","friends","casual","bbq","everyday"]))
+    return addBot(t.casual,[["f4"],["f12",lang==="es"?"Si la cena se alarga o hay carne a la brasa.":"If dinner runs long or there is grilled meat."]]);
+  return addBot(t.fallback,[["f12"]]);
+}
+
+function renderChips(){
+  chips.innerHTML="";
+  T[lang].chips.forEach(c=>{const b=el("button",null,c);b.type="button";b.onclick=()=>send(c);chips.appendChild(b);});
+}
+function setLang(l,greet=true){
+  lang=l;const t=T[l];
+  document.documentElement.lang=l;
+  document.getElementById("l-es").classList.toggle("on",l==="es");
+  document.getElementById("l-en").classList.toggle("on",l==="en");
+  document.getElementById("t-title").textContent=t.title;
+  document.getElementById("t-sub").textContent=t.sub;
+  document.getElementById("t-badge").textContent=t.badge;
+  document.getElementById("t-send").textContent=t.send;
+  document.querySelector("label[for=q]").textContent=t.label;
+  q.placeholder=t.ph;
+  renderChips();
+  if(greet) addBot(t.hello);
+}
+function send(text){if(!text.trim())return;addUser(text);answer(text);}
+
+document.getElementById("f").addEventListener("submit",e=>{e.preventDefault();send(q.value);q.value="";});
+document.getElementById("l-es").onclick=()=>lang!=="es"&&setLang("es");
+document.getElementById("l-en").onclick=()=>lang!=="en"&&setLang("en");
+setLang("es");
+</script>
+</body>
+</html>
